@@ -1,0 +1,352 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #f8f9fa;
+    --text-color: #495057;
+    --heading-color: #314457;
+    --accent-color: #2d456a;   /* Main theme color - Used for buttons */
+    --accent-rgb: 13, 110, 253; /* RGB version for rgba shadows */
+    --accent-hover: #284775; /* Can use for deeper fill on hover */
+    --border-color: #dee2e6;
+    --highlight-skill-color: #2c4545;
+    --highlight-db-color: #0c1938;
+    --highlight-topic-color: hsl(19, 26%, 59%);
+    --highlight-link-color: var(--accent-color);
+    --tag-bg: var(--secondary-color);
+    --tag-text: var(--text-color);
+    --shadow-color-light: rgba(0, 0, 0, 0.04);
+    --shadow-color-medium: rgba(0, 0, 0, 0.08);
+    --shadow-color-dark: rgba(0, 0, 0, 0.12);
+    --font-family-sans: 'Inter', 'Poppins', sans-serif;
+    --border-radius-sm: 6px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 16px;
+    --button-curve-radius: 30px;
+    --button-edge-margin: 20px;
+    --button-vertical-spacing: 16%; /* Slightly reduced vertical spacing maybe? */
+}
+
+/* --- Reset --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* --- Base Styles --- */
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+    font-family: var(--font-family-sans);
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Background Canvas --- */
+#bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: block; }
+
+/* --- Header & Navigation --- */
+header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 1rem 5%; z-index: 1000; border-bottom: 1px solid var(--border-color); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.logo { font-size: 1.7rem; font-weight: 800; color: var(--heading-color); text-decoration: none; }
+nav ul { list-style: none; display: flex; align-items: center; }
+nav ul li { margin-left: 2.5rem; }
+nav ul li a:not(.social-icon-link) { text-decoration: none; color: var(--text-color); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease; position: relative; padding-bottom: 8px; }
+nav ul li a:not(.social-icon-link)::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--accent-color); transition: width 0.3s ease; }
+nav ul li a:not(.social-icon-link):hover { color: var(--accent-color); }
+nav ul li a:not(.social-icon-link):hover::after,
+nav ul li a.active:not(.social-icon-link)::after { width: 100%; }
+nav ul li a.active:not(.social-icon-link) { color: var(--accent-color); font-weight: 600; }
+.social-icon-item { margin-left: 1.5rem; }
+.social-icon-item:first-of-type { margin-left: 2.5rem; }
+.social-icon-link { color: var(--text-color); text-decoration: none; transition: color 0.3s ease, transform 0.2s ease; display: inline-block; padding-bottom: 0; }
+.social-icon-link:hover { color: var(--accent-color); transform: scale(1.1); }
+.social-icon-link i { vertical-align: middle; }
+
+/* --- General Section Styling --- */
+main { position: relative; z-index: 1; }
+.section { padding: 7rem 5% 6rem; margin: 0 auto; max-width: 1100px; position: relative; }
+.section h2 { text-align: center; font-size: 2.6rem; margin-bottom: 1rem; color: var(--heading-color); font-weight: 700; letter-spacing: -0.5px; }
+.section-subtitle { text-align: center; font-size: 1.1rem; color: var(--text-color); max-width: 700px; margin: 0 auto 4rem auto; line-height: 1.6; }
+
+/* --- Intro Section Refinements --- */
+#intro { padding-top: 140px; padding-bottom: 7rem; min-height: 90vh; display: flex; align-items: center; }
+.intro-container { display: flex; align-items: center; justify-content: space-between; gap: 5rem; width: 100%; }
+.intro-text { flex: 1 1 60%; max-width: 600px; }
+.intro-text h1 { font-size: 4.2rem; font-weight: 800; color: var(--heading-color); margin-bottom: 1.5rem; line-height: 1.2; }
+.intro-text p { font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--text-color); }
+.intro-text p:last-of-type { margin-bottom: 0; }
+.highlight-skill, .highlight-db, .highlight-topic { font-weight: 600; }
+.highlight-skill { color: var(--highlight-skill-color); }
+.highlight-db { color: var(--highlight-db-color); }
+.highlight-topic { color: var(--highlight-topic-color); }
+.highlight-concept { font-weight: 600; color: var(--heading-color); }
+.highlight-link { color: var(--highlight-link-color); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--accent-color); padding-bottom: 1px; transition: color 0.2s ease, border-color 0.2s ease; }
+.highlight-link:hover { color: var(--accent-hover); border-color: var(--accent-hover); }
+.intro-image-container { flex: 1 1 35%; display: flex; flex-direction: column; align-items: center; max-width: 320px; }
+.profile-pic-box {
+    background-color: transparent; /* Keep background transparent */
+    border-radius: var(--border-radius-lg); /* Keep existing radius */
+    padding: 0.5rem; /* ADDED: Padding around the image */
+    border: 2px solid var(--accent-color); /* ADDED: Accent color border */
+    box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.2); /* ADJUSTED: Slightly softer accent shadow */
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Ensure image still fits and respects the inner radius if needed */
+.profile-pic-box img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* You might want a slightly smaller radius than the container now */
+    border-radius: calc(var(--border-radius-lg) - 0.5rem); /* Adjust if padding changes */
+}
+.profile-caption { background-color: var(--secondary-color); color: var(--text-color); padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; text-align: center; box-shadow: none; border: 1px solid var(--border-color); }
+
+/* --- Sliding Button Styles --- ICON + TITLE, OUTLINE/FILL --- */
+.slide-in-button {
+    position: fixed;
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 0.5s ease-out,
+                transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), /* Slide-in */
+                background-color 0.25s ease-in-out, /* Hover transitions */
+                color 0.25s ease-in-out,
+                border-color 0.25s ease-in-out,
+                box-shadow 0.25s ease-in-out,
+                transform 0.25s ease-in-out; /* Hover scale */
+
+    /* Flex Container for Icon + Title */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+
+    /* Default State: Outline */
+    background-color: var(--primary-color); /* White Background */
+    color: var(--accent-color);          /* Accent Text/Icon */
+    border: 2px solid var(--accent-color); /* Accent Border */
+    padding: 15px 10px; /* Adjusted padding: More vertical, less horizontal */
+    min-width: 110px; /* Ensure minimum width */
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    white-space: nowrap;
+    border-radius: var(--border-radius-sm); /* Default */
+    text-align: center;
+}
+
+.slide-in-button i {
+    font-size: 1.6rem; /* Adjust icon size */
+    margin-bottom: 8px; /* Space between icon and text */
+    line-height: 1; /* Prevent extra space from icon font */
+}
+
+.slide-in-button .button-title {
+    font-size: 0.75rem; /* Smaller font size for title */
+    font-weight: 500; /* Maybe slightly less bold */
+    line-height: 1.2;
+    display: block; /* Ensure it takes its own line */
+}
+
+
+.slide-in-button:hover {
+    /* Hover State: Fill */
+    background-color: var(--accent-color); /* Accent Background */
+    color: var(--primary-color);          /* White Text/Icon */
+    border-color: var(--accent-color);      /* Border color stays same */
+    box-shadow: 0 6px 15px rgba(var(--accent-rgb), 0.3);
+    /* Scale is applied via the .visible:hover rule */
+}
+
+/* Initial off-screen positions */
+.slide-in-button.from-left { transform: translateX(calc(-100% - var(--button-edge-margin))); }
+.slide-in-button.from-right { transform: translateX(calc(100% + var(--button-edge-margin))); }
+
+/* Final visible state */
+.slide-in-button.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+/* Apply hover scale relative to the final position */
+.slide-in-button.visible:hover {
+    transform: translateX(0) scale(1.05);
+}
+
+
+/* --- !!! Individual Button Positioning & SHAPE !!! --- */
+/* --- Adjust top percentages & --button-edge-margin / --button-vertical-spacing --- */
+/* --- Shape: Flat side faces edge, Curved side faces content --- */
+
+/* Left Buttons (4) (Round on RIGHT side - facing content) */
+#slideBtn1 { top: 20%; left: var(--button-edge-margin); transition-delay: 0.1s; border-radius: var(--border-radius-sm) var(--button-curve-radius) var(--button-curve-radius) var(--border-radius-sm); }
+#slideBtn2 { top: calc(20% + var(--button-vertical-spacing)); left: var(--button-edge-margin); transition-delay: 0.2s; border-radius: var(--border-radius-sm) var(--button-curve-radius) var(--button-curve-radius) var(--border-radius-sm); }
+#slideBtn3 { top: calc(20% + 2 * var(--button-vertical-spacing)); left: var(--button-edge-margin); transition-delay: 0.3s; border-radius: var(--border-radius-sm) var(--button-curve-radius) var(--button-curve-radius) var(--border-radius-sm); }
+#slideBtn4 { top: calc(20% + 3 * var(--button-vertical-spacing)); left: var(--button-edge-margin); transition-delay: 0.4s; border-radius: var(--border-radius-sm) var(--button-curve-radius) var(--button-curve-radius) var(--border-radius-sm); }
+
+/* Right Buttons (4) (Round on LEFT side - facing content) */
+#slideBtn5 { top: 20%; right: var(--button-edge-margin); transition-delay: 0.1s; border-radius: var(--button-curve-radius) var(--border-radius-sm) var(--border-radius-sm) var(--button-curve-radius); }
+#slideBtn6 { top: calc(20% + var(--button-vertical-spacing)); right: var(--button-edge-margin); transition-delay: 0.2s; border-radius: var(--button-curve-radius) var(--border-radius-sm) var(--border-radius-sm) var(--button-curve-radius); }
+#slideBtn7 { top: calc(20% + 2 * var(--button-vertical-spacing)); right: var(--button-edge-margin); transition-delay: 0.3s; border-radius: var(--button-curve-radius) var(--border-radius-sm) var(--border-radius-sm) var(--button-curve-radius); }
+#slideBtn8 { top: calc(20% + 3 * var(--button-vertical-spacing)); right: var(--button-edge-margin); transition-delay: 0.4s; border-radius: var(--button-curve-radius) var(--border-radius-sm) var(--border-radius-sm) var(--button-curve-radius); }
+
+/* --- Project Card Styles (Used in Modals) --- */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; padding-bottom: 10px; }
+.project-card { background-color: var(--primary-color); border-radius: var(--border-radius-md); border: 1px solid var(--border-color); padding: 1.8rem; display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 4px 12px var(--shadow-color-light); }
+.project-card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px var(--shadow-color-medium); }
+.project-header { margin-bottom: 0.8rem; }
+.project-header h3 { font-size: 1.4rem; font-weight: 600; color: var(--heading-color); margin-bottom: 0.2rem; }
+.project-stats { font-size: 0.9rem; color: var(--accent-color); font-weight: 500; margin: 0; }
+.project-description { font-size: 0.95rem; color: var(--text-color); margin-bottom: 1.5rem; flex-grow: 1; line-height: 1.6; }
+.project-tags { margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.project-tags span { background-color: var(--tag-bg); color: var(--tag-text); padding: 4px 10px; border-radius: var(--border-radius-sm); font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); }
+.project-tags.small-tags span { font-size: 0.75rem; padding: 3px 8px; }
+.project-tags.small-tags { margin-bottom: 0; margin-top: 0.3rem; }
+.project-links { display: flex; gap: 1rem; margin-top: auto; }
+.project-links a { color: var(--text-color); font-size: 1.2rem; transition: color 0.2s ease; }
+.project-links a:hover { color: var(--accent-color); }
+.contribution-list { list-style: none; padding: 0; margin: 0; }
+.contribution-list li { padding: 1rem 0; border-bottom: 1px solid var(--border-color); line-height: 1.6; }
+.contribution-list li:last-child { border-bottom: none; }
+.contribution-list strong { font-weight: 600; color: var(--heading-color); display: block; margin-bottom: 0.2rem; }
+.contribution-list strong a { color: inherit; text-decoration: none; }
+.contribution-list strong a:hover { color: var(--accent-color); text-decoration: underline; }
+.contribution-list li a:not(strong a) { color: var(--accent-color); font-size: 0.9em; text-decoration: none; }
+.contribution-list li a:not(strong a):hover { text-decoration: underline; }
+
+/* --- Modal Styles --- */
+.modal {
+  display: none; /* !!! KEY: Hidden by default !!! */
+  position: fixed; /* Stay in place relative to viewport */
+  z-index: 1050; /* Sit on top of everything else */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Prevent body scroll when modal is open */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  backdrop-filter: blur(4px);
+  opacity: 0; /* Start fully transparent for fade-in effect */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade */
+  align-items: center; /* Vertical center content */
+  justify-content: center; /* Horizontal center content */
+}
+
+.modal.active {
+  display: flex; /* !!! KEY: Become visible (as a flex container) when active !!! */
+  opacity: 1; /* Fade in */
+}
+
+.modal-content {
+  background-color: var(--primary-color);
+  margin: auto; /* Helps with centering */
+  padding: 25px 30px;
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 850px; /* Limit modal width */
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative; /* For close button positioning */
+  max-height: 85vh; /* Limit modal height to prevent overflow */
+  display: flex;
+  flex-direction: column; /* Stack title and scrollable content */
+  transform: scale(0.95); /* Start slightly scaled down */
+  transition: transform 0.3s ease-in-out; /* Smooth scale effect */
+}
+
+.modal.active .modal-content {
+    transform: scale(1); /* Scale up to full size when active */
+}
+
+
+.modal-content h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--heading-color);
+    font-size: 1.8rem;
+    flex-shrink: 0; /* Prevent title from shrinking if content is large */
+}
+
+.modal-scroll-content {
+    overflow-y: auto; /* !!! KEY: Enable vertical scroll ONLY for this container !!! */
+    flex-grow: 1; /* Allow this section to take up remaining height */
+    padding-right: 15px; /* Space for scrollbar, prevents content jump */
+    margin-right: -15px; /* Counteract padding to keep content aligned */
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+/* --- Ensure Project Grid/List inside Modal looks okay --- */
+.modal .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding-bottom: 10px; /* Space at bottom of scroll */
+}
+
+.modal .contribution-list li {
+    padding: 1rem 0; /* Adjust padding if needed inside modal */
+}
+
+
+/* --- Footer --- */
+footer { text-align: center; padding: 2.5rem 5%; background-color: var(--secondary-color); color: #6c757d; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+/* --- Responsiveness --- */
+@media (max-width: 992px) {
+    html { font-size: 15.5px; }
+    .intro-container { flex-direction: column; text-align: center; gap: 3rem; }
+    .intro-text { flex-basis: auto; max-width: 100%; order: 2; align-items: center; display: flex; flex-direction: column; }
+    .intro-text h1 { font-size: 3.2rem; }
+    .intro-image-container { order: 1; max-width: 300px; }
+    /* Adjust fixed button margin for medium screens */
+    :root { --button-edge-margin: 15px; }
+    .slide-in-button { padding: 10px 20px; font-size: 0.9rem; }
+     .modal-content { width: 92%; max-width: 700px; padding: 20px 25px; }
+     .modal .project-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+}
+
+@media (max-width: 768px) {
+    html { font-size: 15px; }
+    .section { padding: 5rem 5% 4rem; }
+    .section h2 { font-size: 2.2rem; }
+    .section-subtitle { font-size: 1rem; margin-bottom: 3rem; }
+    /* nav ul li:not(.social-icon-item) { display: none; } */
+    .social-icon-item { margin-left: 1.2rem; }
+    .intro-text h1 { font-size: 2.8rem; }
+    .slide-in-button { display: none; /* Hide fixed buttons on small screens */ }
+    .modal-content { width: 95%; max-width: 95%; padding: 15px 20px; max-height: 90vh; }
+    .modal-content h2 { font-size: 1.5rem; margin-bottom: 15px; padding-bottom: 10px; }
+    .modal .project-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .close-button { font-size: 28px; top: 8px; right: 12px; }
+}
+
+@media (max-width: 576px) {
+     .section { padding: 4rem 5% 3rem; }
+     .intro-text h1 { font-size: 2.4rem; }
+     .intro-image-container { max-width: 240px; }
+     .project-card { padding: 1.5rem; }
+     .project-header h3 { font-size: 1.2rem;}
+     .project-description { font-size: 0.9rem; }
+     .project-tags span { font-size: 0.75rem; padding: 3px 8px;}
+     footer { padding: 2rem 5%; font-size: 0.85rem;}
+}

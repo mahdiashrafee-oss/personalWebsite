@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahdi Ashrafee - Portfolio</title> <!-- CHANGE YOUR NAME IF NEEDED -->
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Favicon (Optional but recommended) -->
+    <!-- <link rel="icon" href="images/favicon.ico" type="image/x-icon"> -->
+
+</head>
+<body>
+    <!-- Canvas for Three.js Background Animation -->
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <nav>
+            <!-- Make sure Name is Correct -->
+            <div class="logo">Mahdi Ashrafee</div>
+            <ul>
+                <li><a href="#intro" class="active">Home</a></li>
+                <!-- Social Icons -->
+                <li class="social-icon-item">
+                    <!-- !!! REPLACE WITH YOUR LINKEDIN URL !!! -->
+                    <a href="https://linkedin.com//in/mahdi959" target="_blank" title="LinkedIn" class="social-icon-link">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                </li>
+                <li class="social-icon-item">
+                     <!-- !!! REPLACE WITH YOUR GITHUB URL !!! -->
+                    <a href="https://github.com/mahdi959" target="_blank" title="GitHub" class="social-icon-link">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Intro Section -->
+        <section id="intro" class="section">
+            <div class="intro-container">
+                <!-- Left Column: Text - !!! EDIT THIS CONTENT THOROUGHLY !!! -->
+                <div class="intro-text">
+                    <h1>Good Day!</h1> <!-- Correct Name? -->
+                    <p>
+                        I’m <b>Mahdi Ashrafee</b>— a curious, creative, and passionate developer who loves turning ideas into delightful digital experiences.
+                        
+                        <br>I enjoy building practical tools and APIs, especially in Python, C, C++ and Java. I focus on making things that work well and are free for everyone — no paywalls, no catches.
+                        
+                    </p>
+                    
+                     <p>
+                        I specialize in <span class="highlight-topic">AWS</span> and love making things that are fast, secure, and scalable and currently exploring <span class="highlight-topic">AWS SageMaker</pan>.<!--<br>Founder of <a href="#" target="_blank" class="highlight-link">SalamFLow</a> and <a href="#" target="_blank" class="highlight-link">MyIntro</a>. -->
+                         <!-- !!! REPLACE WITH YOUR ACTUAL INFO, PROJECTS, LINKS !!! -->
+                    </p>
+                </div>
+
+                <!-- Right Column: Profile Picture - !!! ADD YOUR IMAGE !!! -->
+                <div class="intro-image-container">
+                    <div class="profile-pic-box">
+                        <!-- !!! Make sure 'images/profile2.avif' exists or update path !!! -->
+                        <img src="images/profile4.jpg" alt="Mahdi Ashrafee Avatar">
+                    </div>
+                    <div class="profile-caption">
+                         <!-- !!! Update Location !!! -->
+                         Buffalo, NY 👋
+                    </div>
+                </div>
+            </div>
+             <!-- Buttons are positioned relative to viewport -->
+        </section>
+
+        <!-- Other sections if you add them later -->
+
+    </main>
+
+    <!-- Absolutely Positioned Sliding Buttons (Icon + Title) -->
+    <!-- !!! Adjust top/left/right percentages/pixels in CSS for precise placement !!! -->
+    <!-- !!! Choose appropriate Font Awesome Icons !!! -->
+
+    <!-- Left Side Buttons (4) -->
+    <button id="slideBtn1" class="slide-in-button from-left" data-modal-target="#modalProjects1">
+        <i class="fas fa-desktop"></i>
+        <span class="button-title">Web Apps</span>
+    </button>
+    <button id="slideBtn2" class="slide-in-button from-left" data-modal-target="#modalProjects2">
+        <i class="fas fa-server"></i>
+        <span class="button-title">Backend & APIs</span>
+    </button>
+    <button id="slideBtn3" class="slide-in-button from-left" data-modal-target="#modalProjects6">
+        <i class="fas fa-code-branch"></i>
+        <span class="button-title">Contributions</span>
+    </button>
+    <button id="slideBtn4" class="slide-in-button from-left" data-modal-target="#modalAbout">
+        <i class="fas fa-user"></i>
+        <span class="button-title">About Me</span>
+    </button>
+
+
+     <!-- Right Side Buttons (4) -->
+    <button id="slideBtn5" class="slide-in-button from-right" data-modal-target="#modalProjects5">
+        <i class="fas fa-book"></i>
+        <span class="button-title">Libraries</span>
+    </button>
+    <button id="slideBtn6" class="slide-in-button from-right" data-modal-target="#modalProjects3">
+        <i class="fas fa-flask"></i>
+        <span class="button-title">Experiments</span>
+    </button>
+    <button id="slideBtn7" class="slide-in-button from-right" data-modal-target="#modalSkills">
+        <i class="fas fa-laptop-code"></i>
+        <span class="button-title">Skills</span>
+    </button>
+    <button id="slideBtn8" class="slide-in-button from-right" data-modal-target="#modalContact">
+        <i class="fas fa-envelope"></i>
+        <span class="button-title">Contact</span>
+    </button>
+
+
+    <footer>
+        <!-- !!! Correct Name? -->
+        <p>© <span id="year"></span> Mahdi Ashrafee. Designed with ☕</p>
+    </footer>
+
+    <!-- MODAL DEFINITIONS (Hidden by default) -->
+    <!-- !!! IMPORTANT: Fill ALL modals with your actual project/section details !!! -->
+    <div id="modalProjects1" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Web App Projects</h2> <div class="modal-scroll-content"> <div class="project-grid"> <div class="project-card">Working On it</div> </div> </div> </div> </div>
+    <div id="modalProjects2" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Backend & API Projects</h2> <div class="modal-scroll-content"> <div class="project-grid"> <div class="project-card">Working On it</div> </div> </div> </div> </div>
+    <div id="modalProjects3" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Experimental Projects</h2> <div class="modal-scroll-content"> <div class="project-grid"> <div class="project-card">Working On it</div> </div> </div> </div> </div>
+    <div id="modalProjects5" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Libraries</h2> <div class="modal-scroll-content"> <div class="project-grid"> <div class="project-card">Working On it</div> </div> </div> </div> </div>
+    <div id="modalProjects6" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Open Source Contributions</h2> <div class="modal-scroll-content"> <ul class="contribution-list"> <li>Working On it</li> </ul> </div> </div> </div>
+    <div id="modalAbout" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>About Me</h2> <div class="modal-scroll-content"> <p>Working On it</p> </div> </div> </div>
+    <div id="modalSkills" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Skills</h2> <div class="modal-scroll-content"> <p>Working On it</p> </div> </div> </div>
+    <div id="modalContact" class="modal"> <div class="modal-content"> <span class="close-button">×</span> <h2>Contact</h2> <div class="modal-scroll-content"> <p>Working On it</p> </div> </div> </div>
+    <!-- End Modals -->
+
+
+    <!-- Scripts -->
+    <script type="importmap"> { "imports": { "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.min.js" } } </script>
+    <script type="module" src="animation.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
