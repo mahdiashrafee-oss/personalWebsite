@@ -986,22 +986,26 @@ footer {
     
     #intro {
         padding-top: 80px;
+        height: auto;
+        min-height: 85vh;
     }
     
     .intro-container {
         max-width: 96%;
-        gap: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
     }
     
     .profile-header {
-    flex-direction: column;
-    align-items: center;
-        gap: 1rem;
-        margin-bottom: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
     }
     
     .profile-section {
         margin-top: 0;
+        margin-bottom: 0.5rem;
     }
     
     .profile-info {
@@ -1011,7 +1015,7 @@ footer {
     
     .greeting {
         font-size: 2.5rem;
-    text-align: center;
+        text-align: center;
     }
     
     .intro-text {
@@ -1026,11 +1030,25 @@ footer {
         width: 160px;
         height: 160px;
     }
+    
+    /* Hide copyright, message, and AWS on mobile */
+    .statusbar-item.copyright,
+    .statusbar-message,
+    .aws-indicator {
+        display: none;
+    }
+    
+    .name-tag {
+        bottom: -10px;
+        padding: 3px 10px;
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 480px) {
     #intro {
         padding-top: 70px;
+        padding-bottom: 3rem;
     }
     
     .greeting {
@@ -1044,6 +1062,15 @@ footer {
     .profile-pic-box {
         width: 140px;
         height: 140px;
+    }
+    
+    /* Adjust statusbar spacing */
+    .statusbar-left {
+        justify-content: flex-start;
+    }
+    
+    .statusbar-item {
+        padding: 0 5px;
     }
 }
 
