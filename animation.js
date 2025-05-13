@@ -22,12 +22,16 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4); // Slightly 
 directionalLight.position.set(10, 15, 10); // Position light source
 scene.add(directionalLight);
 
+// Theme-dependent variables
+let paperColor = 0xEAEAEA; // Default light theme color (very light grey)
+const darkThemePaperColor = 0x2A2A2A; // Dark theme color (dark grey)
 
-// --- Paper Geometry and Material ---
+// --- Paper Geometry ---
 const paperGeometry = new THREE.PlaneGeometry(6, 8.5); // Adjusted size slightly
-// Use MeshStandardMaterial for more realistic lighting interaction
+
+// --- Paper Material with initial color ---
 const paperMaterial = new THREE.MeshStandardMaterial({
-    color: 0xEAEAEA, // Very light grey paper, slightly off-white
+    color: paperColor,
     side: THREE.DoubleSide, // Visible from both sides
     metalness: 0.05, // Very low metalness
     roughness: 0.9 // Quite rough surface
@@ -46,7 +50,7 @@ const bounds = {
 };
 
 for (let i = 0; i < paperCount; i++) {
-    const paper = new THREE.Mesh(paperGeometry, paperMaterial);
+    const paper = new THREE.Mesh(paperGeometry, paperMaterial.clone()); // Clone material for individual control
 
     // Random initial position within the bounds
     paper.position.set(
@@ -77,6 +81,32 @@ for (let i = 0; i < paperCount; i++) {
 
     papers.push(paper);
     scene.add(paper);
+}
+
+// --- Theme Change Observer ---
+// Watch for theme changes on the body element
+const themeObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            updatePaperColors(isDarkTheme);
+        }
+    });
+});
+
+// Start observing the body element for class changes
+themeObserver.observe(document.body, { attributes: true });
+
+// Check initial theme on load
+const initialIsDarkTheme = document.body.classList.contains('dark-theme');
+updatePaperColors(initialIsDarkTheme);
+
+// Function to update paper colors based on theme
+function updatePaperColors(isDarkTheme) {
+    const newColor = isDarkTheme ? darkThemePaperColor : paperColor;
+    papers.forEach(paper => {
+        paper.material.color.set(newColor);
+    });
 }
 
 // --- Animation Loop ---
@@ -130,7 +160,6 @@ function onWindowResize() {
     renderer.setPixelRatio(window.devicePixelRatio); // Update pixel ratio too
 }
 window.addEventListener('resize', onWindowResize);
-
 
 // Start animation
 animate();
