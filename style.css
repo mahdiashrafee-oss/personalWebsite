@@ -88,6 +88,7 @@ body {
     background-color: var(--primary-color);
     line-height: 1.6;
     overflow-x: hidden;
+    overflow-y: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color var(--theme-transition), color var(--theme-transition);
@@ -217,7 +218,11 @@ main {
     position: relative; 
     z-index: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    width: 100%;
+    min-height: 100vh; /* Use min-height instead of fixed height */
+    overflow-y: visible; /* Ensure content can overflow and be scrollable */
 }
 .section { 
     padding: 6rem 5% 5rem; 
@@ -247,14 +252,12 @@ main {
     padding-top: 60px; 
     padding-bottom: 1rem; 
     min-height: 100vh; 
-    height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
     text-align: left;
     justify-content: center;
     width: 100%;
-    overflow: hidden;
 }
 
 #intro::before {

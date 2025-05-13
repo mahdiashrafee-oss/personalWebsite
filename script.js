@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const modal = btn.closest('.modal');
             if (modal) {
-                document.body.style.overflow = '';
+                document.body.style.overflow = 'auto';
                 modal.classList.remove('active');
             }
         }));
@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.modal').forEach(modal => 
         modal.addEventListener('click', e => {
             if (e.target === modal) {
-                document.body.style.overflow = '';
+                document.body.style.overflow = 'auto';
                 modal.classList.remove('active');
             }
         }));
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
             const activeModal = document.querySelector('.modal.active');
             if (activeModal) activeModal.classList.remove('active');
             toggleMobileMenu(false);
