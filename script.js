@@ -14,9 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         };
         
-        setTheme(localStorage.getItem('theme') === 'dark' || 
-                (localStorage.getItem('theme') !== 'light' && 
-                window.matchMedia('(prefers-color-scheme: dark)').matches));
+        // Check localStorage for user preference, but default to dark theme if not set
+        const userPreference = localStorage.getItem('theme');
+        // Default to dark theme unless explicitly set to light
+        const defaultToDark = userPreference !== 'light';
+        
+        setTheme(defaultToDark);
         
         themeToggle.addEventListener('click', () => 
             setTheme(!document.body.classList.contains('dark-theme')));
@@ -33,20 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = show ? 'hidden' : '';
         
         if (show) {
-            mobileMenu.style.right = '0';
-            mobileOverlay.style.opacity = '1';
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
         } else {
-            mobileMenu.style.right = '-280px';
-            mobileOverlay.style.opacity = '0';
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
         }
     };
-    
+
     // Event listeners for mobile menu
     if (hamburgerToggle && mobileMenu && mobileOverlay && mobileClose) {
         hamburgerToggle.addEventListener('click', () => toggleMobileMenu(true));
         mobileClose.addEventListener('click', () => toggleMobileMenu(false));
         mobileOverlay.addEventListener('click', () => toggleMobileMenu(false));
-        
+
         // Event delegation for mobile menu buttons
         document.querySelectorAll('.mobile-menu-button').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -96,4 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMobileMenu(false);
         }
     });
+    
+    // Handle responsive breakpoints
+    const handleResponsiveLayout = () => {
+        const windowWidth = window.innerWidth;
+        const slideButtons = document.querySelectorAll('.slide-in-button-container');
+        const hamburgerMenu = document.getElementById('hamburger-toggle');
+        
+        if (windowWidth <= 1150) {
+            slideButtons.forEach(container => container.style.display = 'none');
+            if (hamburgerMenu) hamburgerMenu.style.display = 'block';
+        } else {
+            slideButtons.forEach(container => container.style.display = 'flex');
+            if (hamburgerMenu) hamburgerMenu.style.display = 'none';
+            
+            // Close mobile menu if screen is resized larger
+            toggleMobileMenu(false);
+        }
+    };
+    
+    // Initial check and event listener for window resize
+    handleResponsiveLayout();
+    window.addEventListener('resize', handleResponsiveLayout);
 });
