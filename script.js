@@ -22,6 +22,45 @@ document.addEventListener('DOMContentLoaded', () => {
             setTheme(!document.body.classList.contains('dark-theme')));
     }
 
+    // Mobile menu handling
+    const hamburgerToggle = document.getElementById('hamburger-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileClose = document.getElementById('mobile-close');
+    
+    // Function to toggle mobile menu
+    const toggleMobileMenu = (show) => {
+        document.body.style.overflow = show ? 'hidden' : '';
+        
+        if (show) {
+            mobileMenu.style.right = '0';
+            mobileOverlay.style.opacity = '1';
+        } else {
+            mobileMenu.style.right = '-280px';
+            mobileOverlay.style.opacity = '0';
+        }
+    };
+    
+    // Event listeners for mobile menu
+    if (hamburgerToggle && mobileMenu && mobileOverlay && mobileClose) {
+        hamburgerToggle.addEventListener('click', () => toggleMobileMenu(true));
+        mobileClose.addEventListener('click', () => toggleMobileMenu(false));
+        mobileOverlay.addEventListener('click', () => toggleMobileMenu(false));
+        
+        // Event delegation for mobile menu buttons
+        document.querySelectorAll('.mobile-menu-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleMobileMenu(false);
+                
+                // Open the respective modal
+                const modal = document.querySelector(btn.getAttribute('data-modal-target'));
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            });
+        });
+    }
+
     // Modal handling
     document.querySelectorAll('.slide-in-button').forEach(btn => 
         btn.addEventListener('click', () => {
@@ -33,8 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
 
     document.querySelectorAll('.close-button').forEach(btn => 
-        btn.addEventListener('click', () => 
-            btn.closest('.modal')?.classList.remove('active')));
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal');
+            if (modal) {
+                document.body.style.overflow = '';
+                modal.classList.remove('active');
+            }
+        }));
 
     document.querySelectorAll('.modal').forEach(modal => 
         modal.addEventListener('click', e => {
@@ -47,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             document.body.style.overflow = '';
-            document.querySelector('.modal.active')?.classList.remove('active');
+            const activeModal = document.querySelector('.modal.active');
+            if (activeModal) activeModal.classList.remove('active');
+            toggleMobileMenu(false);
         }
     });
 });
