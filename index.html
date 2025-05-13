@@ -232,7 +232,14 @@
     <div class="statusbar">
         <div class="statusbar-left">
             <div class="statusbar-mode">Active</div>
-            <div class="statusbar-item">portfolio.md</div>
+            <div class="statusbar-item" id="fileNameDisplay">portfolio.md</div>
+            
+            <!-- Command input in statusbar (hidden by default) -->
+            <div class="statusbar-command-container" id="statusbarCommandContainer">
+                <span class="command-prompt">:</span>
+                <input type="text" class="statusbar-command-input" id="commandInput" placeholder="Type a command...">
+            </div>
+            
             <div class="statusbar-item copyright">© 2025 Mahdi Ashrafee • Built with 🍵 and 💻</div>
         </div>
         <div class="statusbar-right">
@@ -240,12 +247,6 @@
             <div class="statusbar-item"><i class="fas fa-code-branch"></i>main</div>
             <div class="statusbar-item aws-indicator"><i class="fas fa-bolt"></i>AWS</div>
             <div class="statusbar-item"><i class="fas fa-clock"></i><span id="current-time">00:00</span></div>
-        </div>
-        
-        <!-- Command input in statusbar (hidden by default) -->
-        <div class="statusbar-command-container" id="statusbarCommandContainer">
-            <span class="command-prompt">:</span>
-            <input type="text" class="statusbar-command-input" id="commandInput" placeholder="Type a command...">
         </div>
     </div>
 
@@ -937,6 +938,7 @@
             const commandOverlay = document.getElementById('commandOverlay');
             const statusbarCommandContainer = document.getElementById('statusbarCommandContainer');
             const commandInput = document.getElementById('commandInput');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
             let shiftPressed = false;
 
             // Show command overlay when Shift is held
@@ -946,16 +948,19 @@
                     commandOverlay.classList.add('visible');
                 }
                 
-                // Show command input when Shift + : is pressed
-                if (shiftPressed && e.key === ':') {
+                // Show command input when Shift + : is pressed or just ':'
+                if ((e.key === ':') || (shiftPressed && e.key === ':')) {
                     e.preventDefault();
-                    statusbarCommandContainer.classList.add('active');
-                    commandInput.focus();
                     
                     // Update statusbar mode to indicate command mode
                     let statusbarMode = document.querySelector('.statusbar-mode');
                     statusbarMode.style.backgroundColor = '#bb9af7'; // Purple to indicate command mode
                     statusbarMode.textContent = 'COMMAND';
+                    
+                    // Hide filename display and show command input
+                    fileNameDisplay.style.display = 'none';
+                    statusbarCommandContainer.classList.add('active');
+                    commandInput.focus();
                 }
                 
                 // Close with Escape key
@@ -986,6 +991,9 @@
                 commandOverlay.classList.remove('visible');
                 statusbarCommandContainer.classList.remove('active');
                 commandInput.value = '';
+                
+                // Show filename display again
+                fileNameDisplay.style.display = 'block';
                 
                 // Restore statusbar mode
                 let statusbarMode = document.querySelector('.statusbar-mode');

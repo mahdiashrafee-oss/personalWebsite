@@ -130,6 +130,10 @@ nav {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-right: auto;
+    min-width: fit-content; /* Ensure logo does not shrink below content size */
+    white-space: nowrap; /* Keep logo text on one line */
+    overflow: visible; /* Ensure text is not cut off */
+    max-width: none; /* Prevent width restrictions that could truncate text */
 }
 
 .logo-link {
@@ -169,13 +173,14 @@ nav {
 .mobile-social-icons {
     display: none;
     margin: 0;
+    gap: 4px;
 }
 
 .mobile-social-icons .social-icon-link {
     font-size: 1.2rem;
     color: var(--text-color);
     transition: color 0.2s ease;
-    padding: 5px 10px;
+    padding: 5px 8px;
 }
 
 .mobile-social-icons .social-icon-link:hover {
@@ -797,15 +802,17 @@ main {
 
 /* Command interface in statusbar */
 .statusbar-command-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    bottom: auto;
+    left: auto;
     width: 100%;
     height: 100%;
-    background-color: var(--secondary-color);
+    background-color: transparent;
     display: none;
     align-items: center;
     padding-left: 15px;
+    margin-left: 10px;
+    flex-grow: 1;
     z-index: 10;
 }
 
@@ -820,7 +827,7 @@ main {
     color: var(--text-color);
     font-family: var(--font-family-sans);
     font-size: 0.9rem;
-    width: calc(100% - 40px);
+    width: 100%;
     height: 100%;
 }
 
@@ -1277,6 +1284,12 @@ footer {
         margin: 0 auto;
         display: block;
     }
+    
+    .mobile-social-icons {
+        display: flex;
+        gap: 5px;
+        margin-right: 6px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1400,7 +1413,11 @@ footer {
     
     /* Make logo smaller on very small screens */
     .logo {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        min-width: fit-content;
+        white-space: nowrap;
+        overflow: visible;
+        max-width: none;
     }
     
     /* Adjust header padding */
@@ -1410,8 +1427,42 @@ footer {
     
     /* Remove margin from mobile social icons to save space */
     .mobile-social-icons {
-        margin-right: 10px;
-        gap: 12px;
+        margin-right: 8px;
+        gap: 6px;
+    }
+}
+
+/* Media queries for better logo and nav layout at different screen sizes */
+@media (max-width: 768px) {
+    nav {
+        justify-content: space-between;
+    }
+    
+    .logo {
+        margin-right: 0;
+        min-width: fit-content;
+        white-space: nowrap; /* Keep logo text on one line */
+        overflow: visible; /* Ensure text is not cut off */
+        max-width: none; /* Remove any width restriction */
+    }
+    
+    .header-icons-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0;
+        margin-left: auto;
+    }
+    
+    .mobile-social-icons {
+        display: flex;
+    }
+    
+    .hamburger-menu {
+        display: block;
+    }
+    
+    .theme-toggle-container {
+        display: none;
     }
 }
 
@@ -1579,6 +1630,12 @@ footer {
     
     .cursor {
         height: 12px;
+    }
+    
+    /* Remove margin from mobile social icons to save space */
+    .mobile-social-icons {
+        margin-right: 8px;
+        gap: 6px;
     }
 }
 
@@ -2295,40 +2352,6 @@ footer {
     font-weight: 500;
 }
 
-/* Media queries for better logo and nav layout at different screen sizes */
-@media (max-width: 768px) {
-    nav {
-        justify-content: space-between;
-    }
-    
-    .logo {
-        margin-right: 0;
-        max-width: 40%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    
-    .header-icons-group {
-        display: flex;
-        justify-content: flex-end;
-        gap: 0;
-        margin-left: auto;
-    }
-    
-    .mobile-social-icons {
-        display: flex;
-    }
-    
-    .hamburger-menu {
-        display: block;
-    }
-    
-    .theme-toggle-container {
-        display: none;
-    }
-}
-
 @media (max-width: 360px) {
     /* Even smaller screens */
     header {
@@ -2336,13 +2359,16 @@ footer {
     }
     
     .logo {
-        font-size: 1rem;
-        max-width: 35%;
+        font-size: 1.1rem;
+        min-width: fit-content; /* Ensure logo doesn't get truncated */
+        white-space: nowrap; /* Keep logo text on one line */
+        overflow: visible; /* Ensure text is not cut off */
+        max-width: none; /* Remove any width restriction */
     }
     
     .mobile-social-icons .social-icon-link {
         font-size: 1rem;
-        padding: 5px 8px;
+        padding: 5px 5px;
     }
     
     .header-theme-toggle {
@@ -2354,6 +2380,10 @@ footer {
         width: 18px;
         height: 14px;
     }
+}
+
+.statusbar-command-container.active ~ .copyright {
+    display: none;
 }
 
 
