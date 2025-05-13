@@ -1858,40 +1858,52 @@ footer {
     margin: 0;
     width: 0;
     animation: 
-        typing 1.5s steps(9, end) forwards,
-        blink-caret 0.75s step-end infinite;
+        typing 0.8s steps(9, end) forwards;
     position: relative;
 }
 
+.typing-animation.completed {
+    border-right: none;
+}
+
+/* Add animation to hide cursor after typing completes */
 @keyframes typing {
-    from { width: 0 }
-    to { width: 240px }
+    from { 
+        width: 0;
+    }
+    to { 
+        width: 240px;
+    }
 }
 
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: var(--accent-color) }
-}
-
-/* Responsive animation widths */
-@media (max-width: 992px) {
+/* Mobile fixes for typing animation */
+@media (max-width: 768px) {
+    .typing-animation {
+        width: 0;
+        margin: 0 auto;
+        display: block;
+    }
+    
     @keyframes typing {
         from { width: 0 }
         to { width: 210px }
     }
-}
-
-@media (max-width: 768px) {
-    @keyframes typing {
-        from { width: 0 }
-        to { width: 180px }
+    
+    /* Center the animation on mobile screens */
+    .greeting.typing-animation {
+        text-align: center;
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 480px) {
     @keyframes typing {
         from { width: 0 }
-        to { width: 140px }
+        to { width: 190px }
+    }
+    
+    .greeting {
+        font-size: 2.2rem;
     }
 }
 
@@ -1977,6 +1989,57 @@ footer {
     font-size: 0.9rem;
     color: var(--comment-color);
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Vim tip styling */
+.vim-tip {
+    font-size: 0.85rem;
+    color: var(--comment-color);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.vim-tip kbd {
+    font-family: var(--font-family-sans);
+    background-color: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent-color);
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+/* Syntax highlighting for text */
+.highlighted-text {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* Neovim-style syntax highlights */
+.keyword-text {
+    color: var(--keyword-color);
+    font-weight: 600;
+}
+
+.string-text {
+    color: var(--string-color);
+    font-weight: 500;
+}
+
+.function-text {
+    color: var(--function-color);
+    font-weight: 500;
+}
+
+.variable-text {
+    color: var(--variable-color);
+    font-weight: 500;
+}
+
+.type-text {
+    color: var(--warning-color);
+    font-weight: 500;
 }
 
 

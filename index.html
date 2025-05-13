@@ -23,7 +23,9 @@
     <header>
         <nav>
             <!-- Logo -->
-            <div class="logo">Mahdi Ashrafee</div>
+            <div class="logo">
+                <a href="#" class="logo-link">Mahdi Ashrafee</a>
+            </div>
             <ul>
                 <li class="theme-toggle-container">
                     <button id="theme-toggle" title="Toggle Dark/Light Mode">
@@ -118,8 +120,9 @@
                         <h1 class="greeting typing-animation">Good Day!</h1>
                         
                         <div class="intro-text">
-                            <p>I'm <span class="highlighted-text">Mahdi Ashrafee</span> — a curious, creative, and passionate developer who loves turning ideas into delightful digital experiences.</p>
-                            <p>I enjoy building practical tools and APIs, especially in Python, C, C++ and Java. I focus on making things that work well and are free for everyone — no paywalls, no catches.</p>
+                            <p>I'm <span class="variable-text">Mahdi</span> — a curious, creative, and passionate developer who loves turning ideas into <span class="string-text">delightful digital experiences</span>.</p>
+                            <p>I enjoy building <span class="function-text">practical tools</span> and <span class="function-text">APIs</span>, especially in <span class="keyword-text">Python</span>, <span class="keyword-text">C</span>, <span class="keyword-text">C++</span> and <span class="keyword-text">Java</span>. I focus on making things that <span class="string-text">work well</span> and are <span class="type-text">free for everyone</span> — no paywalls, no catches.</p>
+                            <p class="vim-tip"><small>Try Vim commands! Press <kbd>Shift</kbd>+<kbd>:</kbd> then type a <kbd>cmd</kbd> like  <kbd>:theme</kbd></small></p>
                         </div>
                     </div>
                 </div>
@@ -866,10 +869,34 @@
             function restartTypingAnimation() {
                 typingElement.style.animation = 'none';
                 typingElement.style.width = '0';
+                typingElement.classList.remove('completed');
                 void typingElement.offsetWidth; // Trigger reflow
                 
-                // Use the same animation for all screen sizes, CSS media queries will handle the width
-                typingElement.style.animation = 'typing 1.5s steps(9, end) forwards, blink-caret 0.75s step-end infinite';
+                let animationWidth = '240px';
+                
+                // Adjust animation width based on screen size
+                if (window.innerWidth <= 480) {
+                    animationWidth = '190px'; // Small mobile
+                    typingElement.style.fontSize = '2.2rem';
+                } else if (window.innerWidth <= 768) {
+                    animationWidth = '210px'; // Tablet/mobile
+                }
+                
+                // Set animation with custom width - much faster now
+                typingElement.style.animation = `typing 0.8s steps(9, end) forwards`;
+                
+                // Ensure proper centering on mobile
+                if (window.innerWidth <= 768) {
+                    typingElement.style.margin = '0 auto';
+                    typingElement.style.display = 'block';
+                    typingElement.style.textAlign = 'center';
+                }
+                
+                // Add completed class after animation finishes to remove cursor
+                setTimeout(() => {
+                    typingElement.classList.add('completed');
+                    typingElement.style.width = animationWidth;
+                }, 900); // Shortened timeout to match the faster animation
             }
             
             // Initially restart the animation
