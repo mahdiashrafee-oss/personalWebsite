@@ -115,7 +115,7 @@
                     
                     <!-- Profile Info on Right -->
                     <div class="profile-info">
-                        <h1 class="greeting">Good Day!</h1>
+                        <h1 class="greeting typing-animation">Good Day!</h1>
                         
                         <div class="intro-text">
                             <p>I'm <span class="highlighted-text">Mahdi Ashrafee</span> — a curious, creative, and passionate developer who loves turning ideas into delightful digital experiences.</p>
@@ -222,6 +222,12 @@
             <div class="statusbar-item"><i class="fas fa-code-branch"></i>main</div>
             <div class="statusbar-item aws-indicator"><i class="fas fa-bolt"></i>AWS</div>
             <div class="statusbar-item"><i class="fas fa-clock"></i><span id="current-time">00:00</span></div>
+        </div>
+        
+        <!-- Command input in statusbar (hidden by default) -->
+        <div class="statusbar-command-container" id="statusbarCommandContainer">
+            <span class="command-prompt">:</span>
+            <input type="text" class="statusbar-command-input" id="commandInput" placeholder="Type a command...">
         </div>
     </div>
 
@@ -780,6 +786,64 @@
         </div>
     </div>
 
+    <!-- Vim-like Command Interface -->
+    <div class="command-overlay" id="commandOverlay">
+        <div class="command-hint-container">
+            <div class="command-hint-title">Command Reference</div>
+            <div class="command-hint">
+                <span class="command-key">:about</span>
+                <span class="command-desc">Open About Me</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:projects</span>
+                <span class="command-desc">View Projects</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:skills</span>
+                <span class="command-desc">View Skills</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:contact</span>
+                <span class="command-desc">Contact Info</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:resume</span>
+                <span class="command-desc">Download Resume</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:ls</span>
+                <span class="command-desc">List Available Tabs</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:cd [tab]</span>
+                <span class="command-desc">Open Specified Tab</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:theme</span>
+                <span class="command-desc">Toggle Theme</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:close</span>
+                <span class="command-desc">Close Current Tab</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:help</span>
+                <span class="command-desc">Show Commands</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neovim-style Buffer List (shown by :ls command) -->
+    <div class="buffer-list-overlay" id="bufferListOverlay">
+        <div class="buffer-list-container">
+            <div class="buffer-list-title">Buffer List</div>
+            <div class="buffer-list" id="bufferList">
+                <!-- Buffer items will be inserted here -->
+            </div>
+            <div class="buffer-list-footer">Press a number to go to buffer, ESC to close</div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="script.js"></script>
     <script>
@@ -793,6 +857,275 @@
         // Update time immediately and set interval
         updateTime();
         setInterval(updateTime, 60000);
+        
+        // Add animation reset for the typing animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const typingElement = document.querySelector('.typing-animation');
+            
+            // Function to restart the typing animation
+            function restartTypingAnimation() {
+                typingElement.style.animation = 'none';
+                typingElement.style.width = '0';
+                void typingElement.offsetWidth; // Trigger reflow
+                
+                // Use the same animation for all screen sizes, CSS media queries will handle the width
+                typingElement.style.animation = 'typing 1.5s steps(9, end) forwards, blink-caret 0.75s step-end infinite';
+            }
+            
+            // Initially restart the animation
+            restartTypingAnimation();
+            
+            // Set up intersection observer to restart when in view
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            restartTypingAnimation();
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+            
+            observer.observe(typingElement);
+        });
+
+        // Vim-like Command Interface
+        document.addEventListener('DOMContentLoaded', function() {
+            const commandOverlay = document.getElementById('commandOverlay');
+            const statusbarCommandContainer = document.getElementById('statusbarCommandContainer');
+            const commandInput = document.getElementById('commandInput');
+            let shiftPressed = false;
+
+            // Show command overlay when Shift is held
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Shift') {
+                    shiftPressed = true;
+                    commandOverlay.classList.add('visible');
+                }
+                
+                // Show command input when Shift + : is pressed
+                if (shiftPressed && e.key === ':') {
+                    e.preventDefault();
+                    statusbarCommandContainer.classList.add('active');
+                    commandInput.focus();
+                    
+                    // Update statusbar mode to indicate command mode
+                    let statusbarMode = document.querySelector('.statusbar-mode');
+                    statusbarMode.style.backgroundColor = '#bb9af7'; // Purple to indicate command mode
+                    statusbarMode.textContent = 'COMMAND';
+                }
+                
+                // Close with Escape key
+                if (e.key === 'Escape') {
+                    closeCommandInterface();
+                }
+            });
+
+            // Hide command overlay when Shift is released
+            document.addEventListener('keyup', function(e) {
+                if (e.key === 'Shift') {
+                    shiftPressed = false;
+                    if (!statusbarCommandContainer.classList.contains('active')) {
+                        commandOverlay.classList.remove('visible');
+                    }
+                }
+            });
+            
+            // Handle command execution
+            commandInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    executeCommand(commandInput.value);
+                }
+            });
+            
+            // Close command interface
+            function closeCommandInterface() {
+                commandOverlay.classList.remove('visible');
+                statusbarCommandContainer.classList.remove('active');
+                commandInput.value = '';
+                
+                // Restore statusbar mode
+                let statusbarMode = document.querySelector('.statusbar-mode');
+                statusbarMode.style.backgroundColor = '#7aa2f7'; // Back to blue
+                statusbarMode.textContent = 'Active';
+            }
+            
+            // Execute various commands
+            function executeCommand(cmd) {
+                const command = cmd.trim().toLowerCase();
+                
+                // Handle commands
+                if (command === 'about' || command === ':about') {
+                    openModal('#modalAbout');
+                } else if (command === 'projects' || command === ':projects') {
+                    openModal('#modalProjects1');
+                } else if (command === 'skills' || command === ':skills') {
+                    openModal('#modalSkills');
+                } else if (command === 'contact' || command === ':contact') {
+                    openModal('#modalContact');
+                } else if (command === 'theme' || command === ':theme') {
+                    document.body.classList.toggle('light-theme');
+                    const themeIcon = document.querySelector('#theme-toggle i');
+                    if (themeIcon.classList.contains('fa-sun')) {
+                        themeIcon.classList.replace('fa-sun', 'fa-moon');
+                    } else {
+                        themeIcon.classList.replace('fa-moon', 'fa-sun');
+                    }
+                } else if (command === 'help' || command === ':help') {
+                    // Just keep command overlay visible
+                    return;
+                } else if (command === 'close' || command === ':close') {
+                    closeAllModals();
+                } else if (command === 'resume' || command === ':resume') {
+                    // Download resume
+                    const resumeLink = document.querySelector('a[href="resume.pdf"]');
+                    if (resumeLink) {
+                        resumeLink.click();
+                    }
+                } else if (command === 'ls' || command === ':ls') {
+                    // Show available "tabs" (modals)
+                    showAvailableTabs();
+                } else if (command.startsWith('cd ') || command.startsWith(':cd ')) {
+                    // Navigate to specified tab
+                    const tabName = command.replace(/^:?cd\s+/, '').trim();
+                    navigateToTab(tabName);
+                } else {
+                    // Unknown command - show error in statusbar
+                    showCommandError('Unknown command: ' + command);
+                    return; // Don't close command interface
+                }
+                
+                // Close command interface after executing (except for help and errors)
+                if (command !== 'help' && command !== ':help' && !command.startsWith('unknown')) {
+                    closeCommandInterface();
+                }
+            }
+            
+            // Open modal helper
+            function openModal(modalId) {
+                closeAllModals();
+                const modal = document.querySelector(modalId);
+                modal.classList.add('active');
+            }
+            
+            // Close all modals helper
+            function closeAllModals() {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => modal.classList.remove('active'));
+            }
+
+            // Display available tabs in Neovim-style buffer list
+            function showAvailableTabs() {
+                const availableTabs = [
+                    { id: 1, name: 'about', path: '#modalAbout', description: 'About Me' },
+                    { id: 2, name: 'skills', path: '#modalSkills', description: 'Skills & Technologies' },
+                    { id: 3, name: 'projects1', path: '#modalProjects1', description: 'Web Applications' },
+                    { id: 4, name: 'projects2', path: '#modalProjects2', description: 'Backend & API Projects' },
+                    { id: 5, name: 'projects3', path: '#modalProjects3', description: 'Experimental Projects' },
+                    { id: 6, name: 'projects5', path: '#modalProjects5', description: 'Libraries & Tools' },
+                    { id: 7, name: 'projects6', path: '#modalProjects6', description: 'Open Source Contributions' },
+                    { id: 8, name: 'contact', path: '#modalContact', description: 'Contact Information' }
+                ];
+                
+                // Get buffer list element
+                const bufferList = document.getElementById('bufferList');
+                const bufferListOverlay = document.getElementById('bufferListOverlay');
+                
+                // Clear existing buffer items
+                bufferList.innerHTML = '';
+                
+                // Add buffer items
+                availableTabs.forEach(tab => {
+                    const bufferItem = document.createElement('div');
+                    bufferItem.className = 'buffer-item';
+                    bufferItem.innerHTML = `
+                        <span class="buffer-number">${tab.id}</span>
+                        <span class="buffer-name">${tab.name}</span>
+                        <span class="buffer-info">${tab.description}</span>
+                    `;
+                    
+                    // Add click event to open buffer
+                    bufferItem.addEventListener('click', () => {
+                        openModal(tab.path);
+                        bufferListOverlay.classList.remove('visible');
+                    });
+                    
+                    bufferList.appendChild(bufferItem);
+                });
+                
+                // Show buffer list overlay
+                bufferListOverlay.classList.add('visible');
+                
+                // Add keyboard shortcuts for buffer numbers
+                function handleBufferKeyPress(e) {
+                    const key = parseInt(e.key);
+                    if (!isNaN(key) && key >= 1 && key <= availableTabs.length) {
+                        const tab = availableTabs.find(t => t.id === key);
+                        if (tab) {
+                            openModal(tab.path);
+                            bufferListOverlay.classList.remove('visible');
+                            document.removeEventListener('keydown', handleBufferKeyPress);
+                        }
+                    }
+                    
+                    // Close with Escape key
+                    if (e.key === 'Escape') {
+                        bufferListOverlay.classList.remove('visible');
+                        document.removeEventListener('keydown', handleBufferKeyPress);
+                    }
+                }
+                
+                // Add keydown listener
+                document.addEventListener('keydown', handleBufferKeyPress);
+                
+                // Close command interface but keep buffer list open
+                closeCommandInterface();
+            }
+
+            // Navigate to a specific tab by name
+            function navigateToTab(tabName) {
+                const tabMap = {
+                    'about': '#modalAbout',
+                    'skills': '#modalSkills',
+                    'projects': '#modalProjects1', // Default projects tab
+                    'projects1': '#modalProjects1',
+                    'webapps': '#modalProjects1',
+                    'web': '#modalProjects1',
+                    'projects2': '#modalProjects2',
+                    'backend': '#modalProjects2',
+                    'api': '#modalProjects2',
+                    'projects3': '#modalProjects3',
+                    'experiments': '#modalProjects3',
+                    'projects5': '#modalProjects5',
+                    'libraries': '#modalProjects5',
+                    'tools': '#modalProjects5',
+                    'projects6': '#modalProjects6',
+                    'opensource': '#modalProjects6',
+                    'contributions': '#modalProjects6',
+                    'contact': '#modalContact'
+                };
+                
+                if (tabMap[tabName]) {
+                    openModal(tabMap[tabName]);
+                } else {
+                    showCommandError('Tab not found: ' + tabName);
+                }
+            }
+
+            // Show command error
+            function showCommandError(errorMessage) {
+                const statusMessage = document.querySelector('.statusbar-message');
+                statusMessage.style.display = 'block';
+                statusMessage.style.backgroundColor = '#f7768e'; // Error red
+                statusMessage.innerHTML = errorMessage;
+                
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                    statusMessage.style.backgroundColor = '#1e2028'; // Reset color
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>
