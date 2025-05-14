@@ -18,6 +18,88 @@
 
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+
+    <!-- Add styles for the new contact button -->
+    <style>
+        .cta-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            gap: 10px;
+            min-width: 160px;
+            border: none;
+        }
+        
+        .cta-button.primary {
+            background: var(--gradient-blue);
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.25);
+        }
+        
+        .cta-button.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(var(--accent-rgb), 0.35);
+        }
+        
+        .cta-button.secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-button.secondary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            color: var(--accent-color);
+        }
+        
+        .cta-button i {
+            font-size: 1rem;
+            color: inherit;
+        }
+        
+        @media (max-width: 768px) {
+            .cta-buttons {
+                gap: 14px;
+            }
+            
+            .cta-button {
+                font-size: 0.85rem;
+                padding: 8px 18px;
+                min-width: 140px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cta-buttons {
+                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
 </head>
 <body class="dark-theme">
     <header>
@@ -83,31 +165,27 @@
             <!-- Mobile menu buttons -->
             <button class="mobile-menu-button" data-modal-target="#modalProjects1">
                 <i class="fas fa-desktop"></i>
-                <span>Web Applications</span>
+                <span>Projects</span>
             </button>
             <button class="mobile-menu-button" data-modal-target="#modalProjects2">
                 <i class="fas fa-server"></i>
-                <span>Backend & APIs</span>
+                <span>APIs</span>
             </button>
             <button class="mobile-menu-button" data-modal-target="#modalProjects6">
                 <i class="fas fa-code-branch"></i>
                 <span>Open Source</span>
             </button>
-            <button class="mobile-menu-button" data-modal-target="#modalAbout">
-                <i class="fas fa-user"></i>
-                <span>About Me</span>
-            </button>
             <button class="mobile-menu-button" data-modal-target="#modalProjects5">
                 <i class="fas fa-book"></i>
-                <span>Libraries</span>
-            </button>
-            <button class="mobile-menu-button" data-modal-target="#modalProjects3">
-                <i class="fas fa-flask"></i>
-                <span>Experiments</span>
+                <span>Blog</span>
             </button>
             <button class="mobile-menu-button" data-modal-target="#modalSkills">
                 <i class="fas fa-laptop-code"></i>
                 <span>Skills</span>
+            </button>
+            <button class="mobile-menu-button" data-modal-target="#modalAbout">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
             </button>
             <button class="mobile-menu-button" data-modal-target="#modalContact">
                 <i class="fas fa-envelope"></i>
@@ -182,8 +260,14 @@
                 
                 <!-- CTA Buttons -->
                 <div class="cta-buttons">
-                    <a href="resume.pdf" download class="cta-button primary">Download Resume</a>
-                    <button class="cta-button secondary" data-modal-target="#modalContact">Contact Me</button>
+                    <a href="resume.pdf" download class="cta-button primary">
+                        <i class="fas fa-download"></i>
+                        <span>Download Resume</span>
+                    </a>
+                    <button class="cta-button secondary" onclick="document.getElementById('modalContact').classList.add('active'); document.body.style.overflow = 'hidden';">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact Me</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -193,38 +277,30 @@
     <div class="slide-in-button-container left-buttons">
         <button class="slide-in-button from-left" data-modal-target="#modalProjects1">
         <i class="fas fa-desktop"></i>
-        <span class="button-title">Web Apps</span>
+        <span class="button-title">Projects</span>
     </button>
         <button class="slide-in-button from-left" data-modal-target="#modalProjects2">
         <i class="fas fa-server"></i>
-            <span class="button-title">Backend APIs</span>
+            <span class="button-title">APIs</span>
     </button>
         <button class="slide-in-button from-left" data-modal-target="#modalProjects6">
         <i class="fas fa-code-branch"></i>
         <span class="button-title">Contributions</span>
-    </button>
-        <button class="slide-in-button from-left" data-modal-target="#modalAbout">
-        <i class="fas fa-user"></i>
-        <span class="button-title">About Me</span>
     </button>
     </div>
 
     <div class="slide-in-button-container right-buttons">
         <button class="slide-in-button from-right" data-modal-target="#modalProjects5">
         <i class="fas fa-book"></i>
-        <span class="button-title">Libraries</span>
-    </button>
-        <button class="slide-in-button from-right" data-modal-target="#modalProjects3">
-        <i class="fas fa-flask"></i>
-        <span class="button-title">Experiments</span>
+        <span class="button-title">Blog</span>
     </button>
         <button class="slide-in-button from-right" data-modal-target="#modalSkills">
         <i class="fas fa-laptop-code"></i>
         <span class="button-title">Skills</span>
     </button>
-        <button class="slide-in-button from-right" data-modal-target="#modalContact">
-        <i class="fas fa-envelope"></i>
-        <span class="button-title">Contact</span>
+        <button class="slide-in-button from-right" data-modal-target="#modalAbout">
+        <i class="fas fa-user"></i>
+        <span class="button-title">About Me</span>
     </button>
     </div>
 
@@ -254,71 +330,136 @@
     <div id="modalProjects1" class="modal">
         <div class="modal-content">
             <span class="close-button">×</span>
-            <h2>Web Applications</h2>
+            <h2>Projects</h2>
             <div class="modal-scroll-content">
                 <div class="project-grid">
+
+                    <!-- terminAI -->
                     <div class="project-card">
                         <div class="project-header">
-                            <i class="fas fa-store project-icon gradient-blue"></i>
-                            <h3>SwiftMart E-Commerce Platform</h3>
+                            <i class="fas fa-terminal project-icon gradient-purple"></i>
+                            <h3>terminAI – Terminal AI Assistant</h3>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Docker</span>
+                            <span class="project-tag">OpenAI SDK</span>
+                            <span class="project-tag">TensorFlow</span>
+                        </div>
+                        <p class="project-description">
+                            A fully <span class="keyword">Dockerized</span> terminal-based AI assistant powered by <span class="tech">OpenAI's GPT</span> models or <span class="tech">TensorFlow</span> based on user choice. Designed for seamless developer interaction with <span class="function">environment-aware configs</span> and support for both <span class="string">cloud</span> and <span class="string">local inference</span>.
+                        </p>
+                        <div class="project-features">
+                            <ul>
+                                <li><strong>Live chat</strong> and code assistant directly from terminal with <span class="keyword">flexible AI backend options</span></li>
+                                <li>Supports <span class="function">API key management</span> via <span class="code-span">.env</span> for OpenAI/ChatGPT mode</li>
+                                <li>Allows switching between <span class="tech">ChatGPT</span> and local <span class="tech">TensorFlow</span> models based on user preference</li>
+                                <li>Customizable model parameters including <span class="function">temperature</span> and <span class="function">max token</span> settings</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- algo-visualizer -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <i class="fas fa-stream project-icon gradient-green"></i>
+                            <h3>algo-visualizer – Algorithm Playground</h3>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Streamlit</span>
+                            <span class="project-tag">Docker</span>
+                            <span class="project-tag">CI/CD</span>
+                        </div>
+                        <p class="project-description">
+                            An interactive <span class="tech">Streamlit</span> application to visualize <span class="keyword">classic algorithms</span> like <span class="function">sorting</span>, <span class="function">graph traversal</span>, and <span class="function">dynamic programming</span> with minimal code and clean UI. Built for <span class="string">learners</span>, <span class="string">educators</span>, and <span class="string">engineers</span>.
+                        </p>
+                        <div class="project-features">
+                            <ul>
+                                <li>Includes <span class="number">12+</span> algorithms with <span class="important">≤50 LOC</span> each</li>
+                                <li><strong>Auto-play</strong> and <span class="function">slider-controlled</span> animations</li>
+                                <li>Fully tested with <span class="tech">pytest</span> and <span class="tech">CI pipeline</span> via GitHub Actions</li>
+                                <li><span class="keyword">Docker</span> & <span class="tech">AWS</span>-ready with App Runner and ECS templates</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- myintro.link -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <i class="fas fa-id-card project-icon gradient-purple"></i>
+                            <h3>myintro.link – Free Personal Website Platform</h3>
                         </div>
                         <div class="project-tags">
                             <span class="project-tag">SvelteKit</span>
-                            <span class="project-tag">PostgreSQL</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">Tailwind</span>
+                            <span class="project-tag">Web Hosting</span>
+                        </div>
+                        <p class="project-description">
+                            A <span class="important">free platform</span> that enables users to create and host their personal websites without any cost. Users can choose from <span class="function">pre-designed templates</span> or upload their <span class="keyword">own custom code</span> to showcase their portfolio, skills, and projects. <span class="comment">Set to launch in August.</span>
+                        </p>
+                        <div class="project-features">
+                            <ul>
+                                <li>Selection of <span class="tech">professionally designed templates</span> for quick site creation</li>
+                                <li><span class="function">Custom code upload</span> option for developers who prefer <span class="keyword">full control</span></li>
+                                <li><span class="string">Free hosting</span> with personalized subdomains for all users</li>
+                                <li>Simple <span class="tech">analytics dashboard</span> to track visitor engagement</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- SalamFlow -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <i class="fas fa-globe project-icon gradient-blue"></i>
+                            <h3>SalamFlow – Scalable Web Platform</h3>
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Flask</span>
                             <span class="project-tag">AWS</span>
+                            <span class="project-tag">EC2</span>
+                            <span class="project-tag">S3</span>
+                            <span class="project-tag">RDS</span>
                         </div>
-                        <p class="project-description">A comprehensive e-commerce solution with real-time inventory management, secure payment processing, and responsive UI.</p>
+                        <p class="project-description">
+                            A <span class="keyword">full-featured web application</span> designed with <span class="important">production-readiness</span> in mind, built using <span class="tech">Flask</span> and deployed entirely on <span class="tech">AWS</span>. <span class="comment">Currently in final testing, with a public launch scheduled for March.</span>
+                        </p>
                         <div class="project-features">
                             <ul>
-                                <li>Integrated Stripe and PayPal payment gateways</li>
-                                <li>Implemented JWT-based authentication system</li>
-                                <li>Designed responsive UI optimized for all device sizes</li>
-                                <li>Improved page load times by 40% through CDN integration</li>
+                                <li><span class="tech">Flask</span> backend with <span class="function">modular API design</span></li>
+                                <li><span class="keyword">Cloud infrastructure</span> using <span class="tech">EC2</span>, <span class="tech">S3</span>, <span class="tech">RDS</span>, <span class="tech">IAM</span>, and <span class="tech">Route 53</span></li>
+                                <li><span class="function">Secure authentication</span> and <span class="function">session management</span></li>
+                                <li><span class="tech">Dockerized</span> deployment with <span class="tech">CI/CD</span> support</li>
                             </ul>
                         </div>
                     </div>
-                    
+
+                    <!-- InsightLinked -->
                     <div class="project-card">
                         <div class="project-header">
-                            <i class="fas fa-chart-line project-icon gradient-purple"></i>
-                            <h3>MetricPulse Analytics Dashboard</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">D3.js</span>
-                            <span class="project-tag">FastAPI</span>
-                        </div>
-                        <p class="project-description">Real-time data visualization dashboard for business intelligence with customizable widgets and automated reporting.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Built interactive charts using D3.js and React</li>
-                                <li>Implemented real-time data updates via WebSockets</li>
-                                <li>Created automated export functionality for reports</li>
-                                <li>Optimized for handling 100K+ data points smoothly</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-comments project-icon gradient-green"></i>
-                            <h3>DevConnect Community Platform</h3>
+                            <i class="fas fa-bolt project-icon gradient-orange"></i>
+                            <h3>InsightLinked Website – Consultancy & Website Builder</h3>
                         </div>
                         <div class="project-tags">
                             <span class="project-tag">SvelteKit</span>
-                            <span class="project-tag">MongoDB</span>
-                            <span class="project-tag">Socket.io</span>
+                            <span class="project-tag">PocketBase</span>
+                            <span class="project-tag">WebSockets</span>
+                            <span class="project-tag">Docker</span>
                         </div>
-                        <p class="project-description">A community platform for developers with real-time chat, code sharing, and project collaboration features.</p>
+                        <p class="project-description">
+                            A <span class="keyword">consultancy platform</span> with integrated <span class="function">website builder</span> capabilities, allowing clients to create their own professional websites with ease. Currently under development, this project leverages <span class="tech">SvelteKit</span> and <span class="tech">PocketBase</span> to provide a <span class="important">smooth, real-time editing experience</span>.
+                        </p>
                         <div class="project-features">
                             <ul>
-                                <li>Implemented real-time messaging with Socket.io</li>
-                                <li>Built syntax-highlighted code sharing functionality</li>
-                                <li>Designed collaborative project management tools</li>
-                                <li>Optimized for low-latency interactions across regions</li>
+                                <li><span class="keyword">Drag-and-drop</span> website builder with <span class="function">customizable templates</span> for clients</li>
+                                <li><span class="important">Real-time preview</span> and <span class="function">collaboration features</span> using <span class="tech">WebSocket</span> technology</li>
+                                <li><span class="tech">Consultancy dashboard</span> with <span class="function">client management</span> and <span class="function">project tracking</span></li>
+                                <li><span class="string">Self-hosted solution</span> with <span class="tech">Docker</span> for easy deployment and maintenance</li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -327,68 +468,27 @@
     <div id="modalProjects2" class="modal">
         <div class="modal-content">
             <span class="close-button">×</span>
-            <h2>Backend & API Projects</h2>
+            <h2>APIs</h2>
             <div class="modal-scroll-content">
                 <div class="project-grid">
                     <div class="project-card">
                         <div class="project-header">
-                            <i class="fas fa-credit-card project-icon gradient-blue"></i>
-                            <h3>SecureGate Payment API</h3>
+                            <i class="fas fa-shield-alt project-icon gradient-blue"></i>
+                            <h3>🧠 ScamShield – AI-Powered Scam Call Detection API</h3>
                         </div>
                         <div class="project-tags">
+                            <span class="project-tag">AWS</span>
+                            <span class="project-tag">Whisper</span>
+                            <span class="project-tag">OpenAI</span>
                             <span class="project-tag">Python</span>
-                            <span class="project-tag">FastAPI</span>
-                            <span class="project-tag">AWS Lambda</span>
                         </div>
-                        <p class="project-description">Secure payment processing API with multi-provider integration, fraud detection, and comprehensive transaction monitoring.</p>
+                        <p class="project-description">Designed and deployed an <span class="keyword">intelligent audio analysis API</span> that detects scam tactics from phone call recordings using <span class="tech">NLP</span>, <span class="function">sentiment cues</span>, and <span class="function">voice patterns</span>.</p>
                         <div class="project-features">
                             <ul>
-                                <li>Integrated with Stripe, PayPal, and Square</li>
-                                <li>Implemented PCI-DSS compliant architecture</li>
-                                <li>Built real-time fraud detection using ML models</li>
-                                <li>Achieved 99.99% uptime with serverless deployment</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-lock project-icon gradient-purple"></i>
-                            <h3>IdentityForge Authentication Service</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">JWT</span>
-                            <span class="project-tag">OAuth2</span>
-                        </div>
-                        <p class="project-description">Scalable authentication and authorization service with support for social logins, MFA, and role-based access control.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Implemented JWT-based authentication with refresh tokens</li>
-                                <li>Built OAuth2 integration with major providers</li>
-                                <li>Added TOTP-based multi-factor authentication</li>
-                                <li>Designed fine-grained permission management system</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-database project-icon gradient-orange"></i>
-                            <h3>DataFlowPro ETL Pipeline</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Apache Airflow</span>
-                            <span class="project-tag">AWS Glue</span>
-                        </div>
-                        <p class="project-description">High-performance ETL system for processing and analyzing large datasets with automated workflows and monitoring.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Built data pipelines processing 50+ million records daily</li>
-                                <li>Implemented data validation and cleansing processes</li>
-                                <li>Created automated alerting for pipeline failures</li>
-                                <li>Optimized AWS resource utilization, reducing costs by 35%</li>
+                                <li>Integrated <span class="tech">OpenAI Whisper</span> for transcription and used <span class="tech">LLM-based</span> heuristics to classify <span class="important">scam indicators</span> (<span class="string">urgency</span>, <span class="string">authority pressure</span>, <span class="string">phishing keywords</span>).</li>
+                                <li>Built a <span class="keyword">serverless backend</span> with <span class="tech">AWS Lambda</span>, <span class="tech">S3</span>, and <span class="tech">API Gateway</span> to handle secure audio uploads and dynamic fraud scoring.</li>
+                                <li>Returned <span class="function">structured results</span>: <span class="important">scam likelihood score</span>, <span class="function">flagged phrases</span>, and <span class="function">human-readable summaries</span>, usable by third-party apps and VoIP services.</li>
+                                <li>Engineered <span class="string">real-world fraud datasets</span> for testing, and planned expansion to include <span class="tech">real-time call flagging</span> via Twilio and acoustic fingerprinting.</li>
                             </ul>
                         </div>
                     </div>
@@ -466,7 +566,7 @@
                     </div>
                     
                     <div class="professional-summary">
-                        <p>A passionate software engineer and AWS specialist with a strong background in cloud infrastructure and backend development. I thrive on building efficient, scalable systems that solve real-world problems.</p>
+                        <p>A <span class="keyword">passionate software engineer</span> and <span class="tech">AWS specialist</span> with a strong background in <span class="function">cloud infrastructure</span> and <span class="function">backend development</span>. I thrive on building <span class="string">efficient, scalable systems</span> that solve real-world problems.</p>
                     </div>
                     
                     <div class="about-section">
@@ -476,7 +576,7 @@
                                 <div class="focus-icon"><i class="fas fa-cloud"></i></div>
                                 <div class="focus-content">
                                     <h4>Cloud Architecture</h4>
-                                    <p>Designing resilient, cost-efficient infrastructure on AWS with a focus on containerization, serverless, and microservices.</p>
+                                    <p>Designing <span class="keyword">resilient</span>, <span class="string">cost-efficient</span> infrastructure on <span class="tech">AWS</span> with a focus on <span class="tech">containerization</span>, <span class="tech">serverless</span>, and <span class="tech">microservices</span>.</p>
                                 </div>
                             </div>
                             
@@ -484,7 +584,7 @@
                                 <div class="focus-icon"><i class="fas fa-server"></i></div>
                                 <div class="focus-content">
                                     <h4>Backend Development</h4>
-                                    <p>Building high-performance APIs and services using Python, FastAPI, and asynchronous programming techniques.</p>
+                                    <p>Building <span class="important">high-performance</span> APIs and services using <span class="tech">Python</span>, <span class="tech">FastAPI</span>, and <span class="function">asynchronous programming</span> techniques.</p>
                                 </div>
                             </div>
                             
@@ -492,7 +592,7 @@
                                 <div class="focus-icon"><i class="fas fa-database"></i></div>
                                 <div class="focus-content">
                                     <h4>Database Systems</h4>
-                                    <p>Working with PostgreSQL, DynamoDB, and Redis to create optimized data storage solutions for various workloads.</p>
+                                    <p>Working with <span class="tech">PostgreSQL</span>, <span class="tech">DynamoDB</span>, and <span class="tech">Redis</span> to create <span class="function">optimized data storage solutions</span> for various workloads.</p>
                                 </div>
                             </div>
                         </div>
@@ -503,227 +603,73 @@
                         <div class="education-item">
                             <div class="education-degree">Bachelor of Science in Computer Science</div>
                             <div class="education-school">University at Buffalo</div>
-                            <div class="education-date"><em>Expected Graduation: Jan 2028 (Accelerating coursework — may graduate as early as 2026)</em></div>
+                            <div class="education-date"><em>Expected Graduation: <span class="number">Jan 2028</span> (Accelerating coursework — may graduate as early as <span class="number">2026</span>)</em></div>
                             <div class="education-description">
-                                <p>Coursework focused on algorithms, data structures, systems programming, and software engineering practices. Active participant in the university's computing society and hackathon events.</p>
+                                <p>Coursework focused on <span class="keyword">algorithms</span>, <span class="keyword">data structures</span>, <span class="function">systems programming</span>, and <span class="function">software engineering</span> practices. Active participant in the university's computing society and hackathon events.</p>
                             </div>
                         </div>
-                    </div>
-                    
+        </div>
+
                     <div class="about-section">
                         <h3 class="gradient-green">Certifications</h3>
                         <div class="cert-text-blocks">
-                            <div class="cert-block">AWS CERTIFIED CLOUD PRACTITIONER</div>
-                            <div class="cert-block">(IN PROGRESS) AWS CERTIFIED SOLUTIONS ARCHITECT ASSOCIATE</div>
+                            <div class="cert-block"><span class="tech">AWS CERTIFIED CLOUD PRACTITIONER</span></div>
+                            <div class="cert-block"><span class="comment">(IN PROGRESS)</span> <span class="tech">AWS CERTIFIED SOLUTIONS ARCHITECT ASSOCIATE</span></div>
                         </div>
-                    </div>
-                    
+        </div>
+
                     <div class="about-section">
                         <h3 class="gradient-orange">Personal Interests</h3>
                         <div class="interests-container">
                             <div class="interest-item">
                                 <i class="fas fa-laptop-code"></i>
-                                <span>Open source contribution</span>
+                                <span><span class="string">Open source contribution</span></span>
                             </div>
                             <div class="interest-item">
                                 <i class="fas fa-book"></i>
-                                <span>Technical literature</span>
+                                <span><span class="keyword">Technical literature</span></span>
                             </div>
                             <div class="interest-item">
                                 <i class="fas fa-mountain"></i>
-                                <span>Hiking</span>
+                                <span><span class="string">Hiking</span></span>
                             </div>
                             <div class="interest-item">
                                 <i class="fas fa-chess-knight"></i>
-                                <span>Strategy games</span>
+                                <span><span class="function">Strategy games</span></span>
                             </div>
                             <div class="interest-item">
                                 <i class="fas fa-utensils"></i>
-                                <span>Culinary exploration</span>
+                                <span><span class="string">Culinary exploration</span></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div id="modalContact" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <h2>Get In Touch</h2>
-            <div class="modal-scroll-content">
-                <div class="contact-badges">
-                    <a href="https://myintro.link" target="_blank">
-                        <img src="https://img.shields.io/badge/Website-myintro.link-0366D6?style=for-the-badge&logo=google-chrome&logoColor=white" />
-                    </a>
-                    <a href="mailto:mahdiash@buffalo.edu">
-                        <img src="https://img.shields.io/badge/Email-mahdiash@buffalo.edu-EA4335?style=for-the-badge&logo=gmail&logoColor=white" />
-                    </a>
-                    <a href="https://linkedin.com/in/mahdi959" target="_blank">
-                        <img src="https://img.shields.io/badge/LinkedIn-mahdi959-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
-                    </a>
         </div>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-envelope feature-icon gradient-blue"></i>
-                        <h3>Email</h3>
-                        <p>mahdiash@buffalo.edu</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fab fa-linkedin feature-icon gradient-purple"></i>
-                        <h3>LinkedIn</h3>
-                        <p>linkedin.com/in/mahdi959</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fab fa-github feature-icon gradient-green"></i>
-                        <h3>GitHub</h3>
-                        <p>github.com/mahdiashrafee-oss</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modalProjects3" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <h2>Experimental Projects</h2>
-            <div class="modal-scroll-content">
-                <div class="project-grid">
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-robot project-icon gradient-blue"></i>
-                            <h3>NarrativeAI Text Generator</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">TensorFlow</span>
-                            <span class="project-tag">AWS SageMaker</span>
-                        </div>
-                        <p class="project-description">Natural language generation model for creative writing and content creation with fine-tuning capabilities.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Fine-tuned transformer-based language models</li>
-                                <li>Built user-friendly interface for text generation</li>
-                                <li>Implemented content safety filtering mechanisms</li>
-                                <li>Optimized inference for sub-second response times</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-home project-icon gradient-green"></i>
-                            <h3>SmartHaven IoT Home System</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Raspberry Pi</span>
-                            <span class="project-tag">MQTT</span>
-                        </div>
-                        <p class="project-description">Personalized smart home automation system using Raspberry Pi and custom sensors for enhanced living experience.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Integrated temperature, humidity, and motion sensors</li>
-                                <li>Built voice control interface using local speech recognition</li>
-                                <li>Implemented energy usage optimization algorithms</li>
-                                <li>Created secure local network for IoT communication</li>
-                            </ul>
-                        </div>
-        </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-microphone project-icon gradient-purple"></i>
-                            <h3>DevAssist Voice Assistant</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">WebRTC</span>
-                            <span class="project-tag">Whisper API</span>
-                        </div>
-                        <p class="project-description">Voice-controlled assistant designed specifically for developer workflows with IDE integration and documentation search.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Built custom wake word detection model</li>
-                                <li>Integrated with VS Code and JetBrains IDEs</li>
-                                <li>Implemented documentation search across multiple platforms</li>
-                                <li>Created context-aware code generation capabilities</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div id="modalProjects5" class="modal">
         <div class="modal-content">
             <span class="close-button">×</span>
-            <h2>Libraries & Tools</h2>
+            <h2>Blog</h2>
             <div class="modal-scroll-content">
                 <div class="project-grid">
                     <div class="project-card">
                         <div class="project-header">
-                            <i class="fas fa-database project-icon gradient-blue"></i>
-                            <h3>DataStore ORM</h3>
+                            <i class="fas fa-code-branch project-icon gradient-blue"></i>
+                            <h3>My Coding Journey</h3>
                         </div>
                         <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">SQL</span>
-                            <span class="project-tag">Open Source</span>
+                            <span class="project-tag">Personal</span>
+                            <span class="project-tag">Development</span>
+                            <span class="project-tag">Experiences</span>
                         </div>
-                        <p class="project-description">Lightweight ORM library for simplified database operations with support for multiple database backends.</p>
+                        <p class="project-description">
+                            <span class="comment">Coming Soon</span>
+                        </p>
                         <div class="project-features">
                             <ul>
-                                <li>Supports PostgreSQL, MySQL, and SQLite</li>
-                                <li>Built query builder with type safety</li>
-                                <li>Implemented migration system for schema versioning</li>
-                                <li>Achieved 30% performance improvement over similar ORMs</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-lock project-icon gradient-purple"></i>
-                            <h3>SecureConfig Manager</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Cryptography</span>
-                            <span class="project-tag">AWS KMS</span>
-                        </div>
-                        <p class="project-description">Configuration management library with encryption support for secure handling of sensitive application settings.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Implemented AES-256 encryption for config values</li>
-                                <li>Built integration with AWS KMS for key management</li>
-                                <li>Created environment-specific configuration inheritance</li>
-                                <li>Added runtime configuration reloading support</li>
-                            </ul>
-                        </div>
-        </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fas fa-code project-icon gradient-green"></i>
-                            <h3>APIGen</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">CLI</span>
-                            <span class="project-tag">OpenAPI</span>
-                        </div>
-                        <p class="project-description">Command-line tool for generating RESTful API scaffolding with OpenAPI documentation and type-safe clients.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Supports FastAPI, Flask, and Express.js</li>
-                                <li>Generates OpenAPI documentation automatically</li>
-                                <li>Creates type-safe client libraries for API consumption</li>
-                                <li>Implements test scaffolding for API endpoints</li>
+                                <li><span class="comment">Coming Soon</span></li>
                             </ul>
                         </div>
                     </div>
@@ -740,48 +686,6 @@
                 <div class="project-grid">
                     <div class="project-card">
                         <div class="project-header">
-                            <i class="fab fa-python project-icon gradient-blue"></i>
-                            <h3>TensorFlow</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Performance</span>
-                        </div>
-                        <p class="project-description">Contributed performance improvements to TensorFlow's data processing pipeline, enhancing throughput for large datasets.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Optimized parallel data loading mechanisms</li>
-                                <li>Reduced memory footprint for data prefetching</li>
-                                <li>Fixed memory leak in dataset iterators</li>
-                                <li>Added comprehensive documentation for best practices</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
-                            <i class="fab fa-python project-icon gradient-green"></i>
-                            <h3>Flask</h3>
-                        </div>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Web</span>
-                            <span class="project-tag">Security</span>
-                        </div>
-                        <p class="project-description">Fixed authentication bugs and improved documentation for Flask's blueprint authentication handling.</p>
-                        <div class="project-features">
-                            <ul>
-                                <li>Resolved edge cases in session management</li>
-                                <li>Enhanced security headers implementation</li>
-                                <li>Improved documentation with practical examples</li>
-                                <li>Added test cases for authentication scenarios</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-header">
                             <i class="fab fa-aws project-icon gradient-orange"></i>
                             <h3>AWS CDK</h3>
                         </div>
@@ -790,15 +694,54 @@
                             <span class="project-tag">AWS</span>
                             <span class="project-tag">Infrastructure</span>
                         </div>
-                        <p class="project-description">Added new features to CloudFormation resource types and improved type safety for AWS CDK constructs.</p>
+                        <p class="project-description">Working on <span class="function">enhancements</span> for <span class="tech">AWS CDK resource types</span> and improvements to <span class="tech">TypeScript type definitions</span> for better developer experience.</p>
                         <div class="project-features">
                             <ul>
-                                <li>Implemented new resource properties for DynamoDB</li>
-                                <li>Enhanced type safety for S3 bucket configurations</li>
-                                <li>Added Lambda function URL support</li>
-                                <li>Improved documentation for complex infrastructure patterns</li>
+                                <li>Exploring potential improvements to <span class="keyword">DynamoDB constructs</span></li>
+                                <li>Researching <span class="function">type safety enhancements</span> for <span class="tech">AWS resource</span> configurations</li>
+                                <li>Working on improving <span class="tech">documentation</span> for infrastructure patterns</li>
+                                <li>Learning the <span class="string">contribution workflow</span> and community guidelines</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="modalContact" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2>Get In Touch</h2>
+            <div class="modal-scroll-content">
+                <div class="contact-badges">
+                    <a href="https://myintro.link" target="_blank">
+                        <img src="https://img.shields.io/badge/Website-myintro.link-0366D6?style=for-the-badge&logo=google-chrome&logoColor=white" />
+                    </a>
+                    <a href="mailto:mahdiash@buffalo.edu">
+                        <img src="https://img.shields.io/badge/Email-mahdiash@buffalo.edu-EA4335?style=for-the-badge&logo=gmail&logoColor=white" />
+                    </a>
+                    <a href="https://linkedin.com/in/mahdi959" target="_blank">
+                        <img src="https://img.shields.io/badge/LinkedIn-mahdi959-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
+                    </a>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-envelope feature-icon gradient-blue"></i>
+                        <h3>Email</h3>
+                        <p><span class="function">mahdiash@buffalo.edu</span></p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fab fa-linkedin feature-icon gradient-purple"></i>
+                        <h3>LinkedIn</h3>
+                        <p><span class="tech">linkedin.com/in/mahdi959</span></p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fab fa-github feature-icon gradient-green"></i>
+                        <h3>GitHub</h3>
+                        <p><span class="tech">github.com/mahdiashrafee-oss</span></p>
                     </div>
                 </div>
             </div>
@@ -818,8 +761,20 @@
                 <span class="command-desc">View Projects</span>
             </div>
             <div class="command-hint">
+                <span class="command-key">:apis</span>
+                <span class="command-desc">View APIs</span>
+            </div>
+            <div class="command-hint">
                 <span class="command-key">:skills</span>
                 <span class="command-desc">View Skills</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:blog</span>
+                <span class="command-desc">View Blog</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:contributions</span>
+                <span class="command-desc">View Open Source</span>
             </div>
             <div class="command-hint">
                 <span class="command-key">:contact</span>
@@ -1006,12 +961,18 @@
                 const command = cmd.trim().toLowerCase();
                 
                 // Handle commands
-                if (command === 'about' || command === ':about') {
+                if (command === 'about' || command === ':about' || command === 'about me' || command === ':about me') {
                     openModal('#modalAbout');
                 } else if (command === 'projects' || command === ':projects') {
                     openModal('#modalProjects1');
+                } else if (command === 'apis' || command === ':apis') {
+                    openModal('#modalProjects2');
                 } else if (command === 'skills' || command === ':skills') {
                     openModal('#modalSkills');
+                } else if (command === 'blog' || command === ':blog') {
+                    openModal('#modalProjects5');
+                } else if (command === 'contributions' || command === ':contributions') {
+                    openModal('#modalProjects6');
                 } else if (command === 'contact' || command === ':contact') {
                     openModal('#modalContact');
                 } else if (command === 'theme' || command === ':theme') {
@@ -1070,12 +1031,11 @@
                 const availableTabs = [
                     { id: 1, name: 'about', path: '#modalAbout', description: 'About Me' },
                     { id: 2, name: 'skills', path: '#modalSkills', description: 'Skills & Technologies' },
-                    { id: 3, name: 'projects1', path: '#modalProjects1', description: 'Web Applications' },
-                    { id: 4, name: 'projects2', path: '#modalProjects2', description: 'Backend & API Projects' },
-                    { id: 5, name: 'projects3', path: '#modalProjects3', description: 'Experimental Projects' },
-                    { id: 6, name: 'projects5', path: '#modalProjects5', description: 'Libraries & Tools' },
-                    { id: 7, name: 'projects6', path: '#modalProjects6', description: 'Open Source Contributions' },
-                    { id: 8, name: 'contact', path: '#modalContact', description: 'Contact Information' }
+                    { id: 3, name: 'projects1', path: '#modalProjects1', description: 'Projects' },
+                    { id: 4, name: 'projects2', path: '#modalProjects2', description: 'APIs' },
+                    { id: 5, name: 'projects5', path: '#modalProjects5', description: 'Blog' },
+                    { id: 6, name: 'projects6', path: '#modalProjects6', description: 'Open Source Contributions' },
+                    { id: 7, name: 'contact', path: '#modalContact', description: 'Contact Information' }
                 ];
                 
                 // Get buffer list element
@@ -1137,22 +1097,16 @@
             function navigateToTab(tabName) {
                 const tabMap = {
                     'about': '#modalAbout',
+                    'about me': '#modalAbout',
                     'skills': '#modalSkills',
                     'projects': '#modalProjects1', // Default projects tab
                     'projects1': '#modalProjects1',
-                    'webapps': '#modalProjects1',
-                    'web': '#modalProjects1',
-                    'projects2': '#modalProjects2',
-                    'backend': '#modalProjects2',
+                    'apis': '#modalProjects2',
                     'api': '#modalProjects2',
-                    'projects3': '#modalProjects3',
-                    'experiments': '#modalProjects3',
-                    'projects5': '#modalProjects5',
-                    'libraries': '#modalProjects5',
-                    'tools': '#modalProjects5',
-                    'projects6': '#modalProjects6',
-                    'opensource': '#modalProjects6',
+                    'blog': '#modalProjects5',
                     'contributions': '#modalProjects6',
+                    'opensource': '#modalProjects6',
+                    'open-source': '#modalProjects6',
                     'contact': '#modalContact'
                 };
                 

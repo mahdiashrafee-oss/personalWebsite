@@ -39,6 +39,15 @@
     --gradient-purple: linear-gradient(135deg, #bb9af7, #9d7cd8);
     --gradient-orange: linear-gradient(135deg, #ff9e64, #e0af68);
     --gradient-green: linear-gradient(135deg, #9ece6a, #73daca);
+    
+    /* Project card highlighting colors */
+    --highlight-keyword: #bb9af7;
+    --highlight-function: #7aa2f7;
+    --highlight-string: #9ece6a;
+    --highlight-number: #ff9e64;
+    --highlight-comment: #565f89;
+    --highlight-important: #f7768e;
+    --highlight-tech: #7dcfff;
 }
 
 /* Default is already dark theme, light theme is applied via class */
@@ -75,6 +84,15 @@
     --gradient-purple: linear-gradient(135deg, #8351bc, #614399);
     --gradient-orange: linear-gradient(135deg, #e07a32, #b58144);
     --gradient-green: linear-gradient(135deg, #485e30, #3e887b);
+    
+    /* Project card highlighting colors for light theme */
+    --highlight-keyword: #8351bc;
+    --highlight-function: #2e5edf;
+    --highlight-string: #485e30;
+    --highlight-number: #b58144;
+    --highlight-comment: #848cb5;
+    --highlight-important: #c53b53;
+    --highlight-tech: #0db9d7;
 }
 
 /* --- Reset --- */
@@ -2387,6 +2405,68 @@ footer {
 
 .statusbar-command-container.active ~ .copyright {
     display: none;
+}
+
+/* Project card content styling enhancements */
+.project-description .keyword,
+.project-features .keyword {
+    color: var(--highlight-keyword);
+    font-weight: 600;
+}
+
+.project-description .function,
+.project-features .function {
+    color: var(--highlight-function);
+    font-weight: 600;
+}
+
+.project-description .string,
+.project-features .string {
+    color: var(--highlight-string);
+}
+
+.project-description .number,
+.project-features .number {
+    color: var(--highlight-number);
+    font-weight: 500;
+}
+
+.project-description .comment,
+.project-features .comment {
+    color: var(--highlight-comment);
+    font-style: italic;
+}
+
+.project-description .tech,
+.project-features .tech {
+    color: var(--highlight-tech);
+    font-weight: 500;
+}
+
+.project-description .important,
+.project-features .important {
+    color: var(--highlight-important);
+    font-weight: 600;
+}
+
+.project-features li strong {
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+/* Code-like spans in project descriptions */
+.code-span {
+    font-family: var(--font-family-sans);
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.15);
+    color: var(--accent-color);
+    font-size: 0.9em;
+}
+
+.light-theme .code-span {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--highlight-function);
 }
 
 

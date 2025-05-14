@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         };
-        
+    
         // Check localStorage for user preference, but default to dark theme if not set
         const userPreference = localStorage.getItem('theme');
         // Default to dark theme unless explicitly set to light
@@ -57,21 +57,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Open the respective modal
                 const modal = document.querySelector(btn.getAttribute('data-modal-target'));
-                if (modal) {
-                    modal.classList.add('active');
+        if (modal) {
+            modal.classList.add('active');
                 }
             });
         });
     }
 
     // Modal handling
-    document.querySelectorAll('.slide-in-button').forEach(btn => 
+    document.querySelectorAll('.slide-in-button, .cta-button').forEach(btn => 
         btn.addEventListener('click', () => {
             const modal = document.querySelector(btn.getAttribute('data-modal-target'));
             if (modal) {
                 document.body.style.overflow = 'hidden';
                 modal.classList.add('active');
-            }
+        }
         }));
 
     document.querySelectorAll('.close-button').forEach(btn => 
@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const modal = btn.closest('.modal');
             if (modal) {
                 document.body.style.overflow = 'auto';
-                modal.classList.remove('active');
-            }
+            modal.classList.remove('active');
+        }
         }));
 
     document.querySelectorAll('.modal').forEach(modal => 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMobileMenu(false);
         }
     });
-    
+
     // Handle responsive breakpoints
     const handleResponsiveLayout = () => {
         const windowWidth = window.innerWidth;
