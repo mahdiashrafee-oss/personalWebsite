@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It All Started - Mahdi Ashrafee</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts (JetBrains Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+
+    <style>
+        /* Blog specific styles */
+        body {
+            padding-bottom: 40px;
+        }
+        
+        main {
+            min-height: calc(100vh - 60px);
+        }
+        
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 25px 50px;
+        }
+        
+        .blog-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .blog-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .blog-metadata {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .blog-content {
+            line-height: 1.9;
+            font-size: 1.08rem;
+            max-width: 100%;
+            letter-spacing: 0.01rem;
+        }
+        
+        .blog-content p:first-of-type {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+        
+        .blog-content p strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.8rem;
+            max-width: 100%;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+        }
+        
+        .image-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            position: relative;
+            max-height: 350px;
+        }
+        
+        .image-wrap:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(
+                rgba(var(--accent-rgb), 0.08),
+                rgba(0, 0, 0, 0.05)
+            );
+            pointer-events: none;
+        }
+        
+        .image-wrap img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s ease;
+        }
+        
+        .image-box:hover .image-wrap img {
+            transform: scale(1.03);
+        }
+        
+        .image-box {
+            position: relative;
+            width: calc(50% - 15px);
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .image-box:before {
+            content: "/* Image */";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        
+        .image-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .image-box:hover:before {
+            color: var(--accent-color);
+            opacity: 0.8;
+        }
+        
+        .image-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-left: 18px;
+        }
+        
+        .image-caption:before {
+            content: "//";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            opacity: 0.7;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .image-box:hover .image-caption {
+            color: var(--text-color);
+        }
+        
+        .image-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        .highlight-text {
+            background: rgba(var(--accent-rgb), 0.1);
+            padding: 0 5px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 1.8rem;
+            }
+            
+            .blog-content {
+                font-size: 1rem;
+            }
+            
+            .image-container {
+                flex-direction: column;
+                gap: 25px;
+                margin: 30px 0;
+            }
+            
+            .image-box, .single-image-box {
+                width: 100%;
+                margin-bottom: 0;
+                padding: 15px;
+            }
+            
+            .single-image-box:before {
+                font-size: 0.7rem;
+                top: 8px;
+                right: 10px;
+            }
+            
+            .final-product:after {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .blog-container {
+                padding: 20px 20px;
+                max-width: 100%;
+            }
+            
+            .timeline-marker {
+                font-size: 0.8rem;
+                padding-left: 25px;
+                margin: 20px 0;
+            }
+            
+            .timeline-marker:before {
+                width: 15px;
+            }
+            
+            .timeline-marker:after {
+                left: 15px;
+                font-size: 10px;
+            }
+            
+            .image-title {
+                font-size: 0.9rem;
+            }
+            
+            .image-caption {
+                font-size: 0.8rem;
+                padding-left: 15px;
+            }
+            
+            .image-caption:before {
+                font-size: 0.9rem;
+            }
+            
+            .back-button {
+                top: 15px;
+                left: 15px;
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-title {
+                font-size: 1.6rem;
+            }
+            
+            .blog-metadata {
+                font-size: 0.8rem;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .separator {
+                display: none;
+            }
+            
+            .image-box:before {
+                top: 7px;
+                right: 10px;
+                font-size: 0.7rem;
+            }
+            
+            .statusbar {
+                font-size: 0.7rem;
+            }
+            
+            .statusbar-message {
+                display: none;
+            }
+        }
+        
+        .timeline-marker {
+            position: relative;
+            padding-left: 30px;
+            margin: 40px 0;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .timeline-marker:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 1px;
+            background-color: var(--accent-color);
+        }
+        
+        .timeline-marker:after {
+            content: "⦿";
+            position: absolute;
+            left: 20px;
+            top: 0;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        .single-image-box {
+            width: 85%;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .single-image-box:before {
+            content: "/* Image */";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        
+        .single-image-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            position: relative;
+            max-height: 350px;
+        }
+        
+        .image-wrap:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(
+                rgba(var(--accent-rgb), 0.08),
+                rgba(0, 0, 0, 0.05)
+            );
+            pointer-events: none;
+        }
+        
+        .image-wrap img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s ease;
+        }
+        
+        .image-wrap:hover img {
+            transform: scale(1.02);
+        }
+        
+        .image-description {
+            padding: 5px 5px 0;
+        }
+        
+        .image-caption {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .image-caption:before {
+            content: "//";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            opacity: 0.7;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        
+        /* Development setup styling */
+        .dev-setup {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.18);
+            border-left: 2px solid #7aa2f7;
+        }
+        
+        .dev-setup:before {
+            content: "/* Dev */";
+            color: #7aa2f7;
+            opacity: 0.8;
+        }
+        
+        .dev-setup .image-title {
+            color: #7aa2f7;
+        }
+        
+        .dev-setup:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #7aa2f7 0%, transparent 50%);
+            border-radius: 8px 0 0 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        /* Final product styling */
+        .final-product {
+            border-right: 2px solid var(--accent-color);
+            box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.2);
+        }
+        
+        .final-product:before {
+            content: "/* Final */";
+            color: var(--accent-color);
+            opacity: 0.8;
+        }
+        
+        .final-product .image-title {
+            color: var(--accent-color);
+        }
+        
+        .final-product:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, transparent 50%);
+            border-radius: 0 8px 0 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        /* Command interface styling */
+        .command-overlay {
+            display: none;
+            position: fixed;
+            bottom: 35px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .command-overlay.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .command-hint-container {
+            padding: 15px;
+            max-width: 320px;
+        }
+        
+        .command-hint-title {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        
+        .command-hint {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .command-key {
+            color: var(--accent-color);
+            font-weight: 500;
+            width: 90px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .command-desc {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .statusbar-command-container {
+            display: none;
+            position: relative;
+        }
+        
+        .statusbar-command-container.active {
+            display: flex;
+            align-items: center;
+        }
+        
+        .command-prompt {
+            color: var(--accent-color);
+            margin-right: 4px;
+            font-weight: bold;
+        }
+        
+        .statusbar-command-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            width: 200px;
+        }
+        
+        .key {
+            display: inline-block;
+            background-color: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent-color);
+            border-radius: 3px;
+            padding: 0 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <a href="index.html" class="back-button" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <main>
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1 class="blog-title">How It All Started</h1>
+                <div class="blog-metadata">
+                    <i class="far fa-calendar-alt"></i> Published on <span class="highlight">July 15, 2023</span>
+                    <span class="separator">|</span>
+                    <i class="fas fa-tags"></i> <span class="highlight">Personal Journey</span>
+                </div>
+            </div>
+            
+            <div class="blog-content">
+                <p>I didn't grow up planning to be an engineer.</p>
+                
+                <p>Back in <span class="highlight-text">primary school</span>, I lived in a <strong>village</strong> where students relied heavily on guidebooks to pass exams — but many couldn't afford them. At the same time, I noticed something: even families who struggled to buy school supplies often had a <span class="highlight-text">phone</span> at home.</p>
+                
+                <div class="timeline-marker">
+                    Early 2016
+                </div>
+                
+                <p>That gave me an idea.</p>
+                
+                <p>I wanted to build a <strong>free Android app</strong> with basic educational content — stories, letters, paragraphs — to help kids like me study. There was just one problem: I didn't know how to code. We had <span class="highlight-text">no Wi-Fi</span>. And downloading Android Studio? That was an entire mission.</p>
+                
+                <div class="single-image-box dev-setup">
+                    <div class="image-wrap">
+                        <img src="images/old_days1.png" alt="Old CRT monitor showing code editor with terminal" loading="lazy">
+                    </div>
+                    <div class="image-description">
+                        <div class="image-title">Development Setup</div>
+                        <div class="image-caption">Coding on an old CRT monitor with limited internet access.</div>
+                    </div>
+                </div>
+                
+                <p>I saved up my lunch money and walked to a local store — a <span class="highlight-text">half-mile journey each way</span> — just to buy mobile bandwidth on my phone. I used it sparingly to read tutorials, download tools, and troubleshoot bugs. The Android Studio installer alone took <span class="highlight-text">12 hours</span> to download — half a day of precious bandwidth. Every step was a challenge, from the syntax of my first <strong>onClickListener</strong> to figuring out why my emulator wouldn't open.</p>
+                
+                <p>My computer itself was another battle. With only <span class="highlight-text">1GB of RAM</span>, every compilation was a test of patience. I lost count of how many times I had to restart the PC when it froze — probably a <strong>billion</strong>. Eventually, I managed to upgrade the RAM, only to discover my hard disk was <span class="highlight-text">too small</span> to even handle the extra memory effectively. The constant disk thrashing sound became the soundtrack of my coding sessions.</p>
+                
+                <div class="timeline-marker">
+                    Mid 2017 - Early 2018
+                </div>
+                
+                <p>I didn't have access to <span class="highlight-text">mentors</span> or <span class="highlight-text">YouTube tutorials</span>. When I got stuck, I'd leave it, come back later, and keep going. It was isolating — programming without guidance or feedback. There were days when I wondered if it was worth the effort, especially when running into the <strong>same errors</strong> over and over.</p>
+                
+                <p>Sometimes, I'd even <span class="highlight-text">skip school</span>. Not because I didn't value education, but because some days, solving a coding problem seemed more important than sitting through classes that felt distant from what I was trying to build.</p>
+                
+                <p>It was an odd feeling — building something to help others while feeling somewhat disconnected myself.</p>
+                
+                <p>After <strong>months of trial-and-error</strong>, sleepless nights, and a progress bar that seemed frozen in time, I finally held a working APK in my hands. I couldn't afford the <span class="highlight-text">$25 Play Store fee</span> at first, but later I managed — and in <strong>2018</strong>, I published it to the Play Store. It only had a few users, and it's been deleted since, but it was <strong>real</strong>, and it <strong>worked</strong>.</p>
+                
+                <div class="single-image-box final-product">
+                    <div class="image-wrap">
+                        <img src="images/old_days2.jpg" alt="The finished Android app showing educational content menu" loading="lazy">
+                    </div>
+                    <div class="image-description">
+                        <div class="image-title">The Final Product</div>
+                        <div class="image-caption">My Android app with educational content for students who couldn't afford traditional guidebooks.</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-marker">
+                    Late 2018
+                </div>
+                
+                <p>That's where it all began.</p>
+                <p>Not with a goal of becoming a software engineer — but with a desire to <strong>solve a problem</strong> I saw around me.</p>
+                
+                <p>I know it's probably not a big deal today, and maybe not even much of an achievement in the grand scheme of things.
+                But I share this not to brag — just to give context.
+                That's how it started. And I'm still learning, still building.</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Status Bar -->
+    <div class="statusbar">
+        <div class="statusbar-left">
+            <div class="statusbar-mode">Active</div>
+            <div class="statusbar-item" id="fileNameDisplay">blog-how-it-started.md</div>
+            
+            <!-- Command input in statusbar (hidden by default) -->
+            <div class="statusbar-command-container" id="statusbarCommandContainer">
+                <span class="command-prompt">:</span>
+                <input type="text" class="statusbar-command-input" id="commandInput" placeholder="Type a command...">
+            </div>
+            
+            <div class="statusbar-message">Press <span class="key">Esc</span> to go back or type <span class="key">:home</span> to go to homepage</div>
+        </div>
+        <div class="statusbar-right">
+            <div class="statusbar-item theme-indicator">
+                <i class="fas fa-moon"></i>
+                <span>DARK</span>
+            </div>
+            <div class="statusbar-item"><i class="fas fa-code-branch"></i>main</div>
+            <div class="statusbar-item" id="current-time">00:00</div>
+        </div>
+    </div>
+
+    <!-- Vim-like Command Interface -->
+    <div class="command-overlay" id="commandOverlay">
+        <div class="command-hint-container">
+            <div class="command-hint-title">Command Reference</div>
+            <div class="command-hint">
+                <span class="command-key">:back</span>
+                <span class="command-desc">Return to Home</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:theme</span>
+                <span class="command-desc">Toggle Theme</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:blog</span>
+                <span class="command-desc">View Blog List</span>
+            </div>
+            <div class="command-hint">
+                <span class="command-key">:home</span>
+                <span class="command-desc">Go to Homepage</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Update current time in status bar
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        // Update time immediately and set interval
+        updateTime();
+        setInterval(updateTime, 60000);
+        
+        // Vim-like Command Interface
+        document.addEventListener('DOMContentLoaded', function() {
+            const commandOverlay = document.getElementById('commandOverlay');
+            const statusbarCommandContainer = document.getElementById('statusbarCommandContainer');
+            const commandInput = document.getElementById('commandInput');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            let shiftPressed = false;
+
+            // Show command overlay when Shift is held
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Shift') {
+                    shiftPressed = true;
+                    commandOverlay.classList.add('visible');
+                }
+                
+                // Show command input when Shift + : is pressed or just ':'
+                if ((e.key === ':') || (shiftPressed && e.key === ':')) {
+                    e.preventDefault();
+                    
+                    // Update statusbar mode to indicate command mode
+                    let statusbarMode = document.querySelector('.statusbar-mode');
+                    statusbarMode.style.backgroundColor = '#bb9af7'; // Purple to indicate command mode
+                    statusbarMode.textContent = 'COMMAND';
+                    
+                    // Hide filename display and show command input
+                    fileNameDisplay.style.display = 'none';
+                    statusbarCommandContainer.classList.add('active');
+                    commandInput.focus();
+                }
+                
+                // Close with Escape key
+                if (e.key === 'Escape') {
+                    closeCommandInterface();
+                    window.location.href = 'index.html';
+                }
+            });
+
+            // Hide command overlay when Shift is released
+            document.addEventListener('keyup', function(e) {
+                if (e.key === 'Shift') {
+                    shiftPressed = false;
+                    if (!statusbarCommandContainer.classList.contains('active')) {
+                        commandOverlay.classList.remove('visible');
+                    }
+                }
+            });
+            
+            // Handle command execution
+            commandInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    executeCommand(commandInput.value);
+                }
+            });
+            
+            // Close command interface
+            function closeCommandInterface() {
+                commandOverlay.classList.remove('visible');
+                statusbarCommandContainer.classList.remove('active');
+                commandInput.value = '';
+                
+                // Show filename display again
+                fileNameDisplay.style.display = 'block';
+                
+                // Restore statusbar mode
+                let statusbarMode = document.querySelector('.statusbar-mode');
+                statusbarMode.style.backgroundColor = '#7aa2f7'; // Back to blue
+                statusbarMode.textContent = 'Active';
+            }
+            
+            // Execute various commands
+            function executeCommand(cmd) {
+                const command = cmd.trim().toLowerCase();
+                
+                // Handle commands
+                if (command === 'back' || command === ':back' || command === 'home' || command === ':home') {
+                    window.location.href = 'index.html';
+                } else if (command === 'theme' || command === ':theme') {
+                    document.body.classList.toggle('light-theme');
+                    document.body.classList.toggle('dark-theme');
+                    
+                    const themeIndicator = document.querySelector('.theme-indicator');
+                    const themeIcon = themeIndicator.querySelector('i');
+                    const themeText = themeIndicator.querySelector('span');
+                    
+                    if (document.body.classList.contains('light-theme')) {
+                        themeIcon.className = 'fas fa-sun';
+                        themeText.textContent = 'LIGHT';
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        themeIcon.className = 'fas fa-moon';
+                        themeText.textContent = 'DARK';
+                        localStorage.setItem('theme', 'dark');
+                    }
+                } else if (command === 'blog' || command === ':blog') {
+                    window.location.href = 'index.html';
+                    setTimeout(() => {
+                        if (window.opener && typeof window.opener.openModal === 'function') {
+                            window.opener.openModal('#modalProjects5');
+                        }
+                    }, 100);
+                } else if (command === 'help' || command === ':help') {
+                    // Just keep command overlay visible
+                    return;
+                } else {
+                    // Unknown command - show error in statusbar
+                    const statusMessage = document.querySelector('.statusbar-message');
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.backgroundColor = '#f7768e'; // Error red
+                    statusMessage.innerHTML = 'Unknown command: ' + command;
+                    
+                    setTimeout(() => {
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.backgroundColor = 'transparent'; // Reset color
+                        statusMessage.innerHTML = 'Press <span class="key">Esc</span> to go back or type <span class="key">:home</span> to go to homepage';
+                    }, 3000);
+                    return; // Don't close command interface
+                }
+                
+                // Close command interface after executing (except for help and errors)
+                if (command !== 'help' && command !== ':help' && !command.startsWith('unknown')) {
+                    closeCommandInterface();
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -10,7 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const setTheme = isDark => {
             document.body.classList[isDark ? 'add' : 'remove']('dark-theme');
             document.body.classList[!isDark ? 'add' : 'remove']('light-theme');
+            
+            // Update theme indicator in header
             themeToggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Update statusbar theme indicator if it exists
+            const statusThemeIndicator = document.querySelector('.theme-indicator');
+            if (statusThemeIndicator) {
+                const statusThemeIcon = statusThemeIndicator.querySelector('i');
+                const statusThemeText = statusThemeIndicator.querySelector('span');
+                
+                if (statusThemeIcon) {
+                    statusThemeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                }
+                
+                if (statusThemeText) {
+                    statusThemeText.textContent = isDark ? 'DARK' : 'LIGHT';
+                }
+            }
+            
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         };
     
@@ -23,6 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         themeToggle.addEventListener('click', () => 
             setTheme(!document.body.classList.contains('dark-theme')));
+    } else {
+        // For pages without theme toggle button (like blog pages)
+        // Just apply the theme from localStorage
+        const userPreference = localStorage.getItem('theme');
+        const isDark = userPreference !== 'light';
+        
+        document.body.classList[isDark ? 'add' : 'remove']('dark-theme');
+        document.body.classList[!isDark ? 'add' : 'remove']('light-theme');
+        
+        // Update statusbar theme indicator if it exists
+        const statusThemeIndicator = document.querySelector('.theme-indicator');
+        if (statusThemeIndicator) {
+            const statusThemeIcon = statusThemeIndicator.querySelector('i');
+            const statusThemeText = statusThemeIndicator.querySelector('span');
+            
+            if (statusThemeIcon) {
+                statusThemeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+            }
+            
+            if (statusThemeText) {
+                statusThemeText.textContent = isDark ? 'DARK' : 'LIGHT';
+            }
+        }
     }
 
     // Mobile menu handling
@@ -61,6 +102,15 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.add('active');
                 }
             });
+        });
+    }
+
+    // Handle Escape key on blog pages to navigate back to home
+    if (window.location.pathname.includes('blog-') && !document.querySelector('.modal')) {
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                window.location.href = 'index.html';
+            }
         });
     }
 
