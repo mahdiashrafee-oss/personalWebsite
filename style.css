@@ -1089,9 +1089,9 @@ footer {
         display: none;
     }
     
-    .mobile-overlay, .mobile-menu {
+    /* .mobile-overlay, .mobile-menu {
         display: block;
-    }
+    } */
     
     .slide-in-button-container {
         display: none;
