@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList[!isDark ? 'add' : 'remove']('light-theme');
             
             // Update theme indicator in header
-            themeToggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            const themeIcon = themeToggle.querySelector('i');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             
             // Update statusbar theme indicator if it exists
             const statusThemeIndicator = document.querySelector('.theme-indicator');
@@ -98,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Open the respective modal
                 const modal = document.querySelector(btn.getAttribute('data-modal-target'));
-        if (modal) {
-            modal.classList.add('active');
+                if (modal) {
+                    modal.classList.add('active');
                 }
             });
         });
@@ -114,14 +115,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modal handling
-    document.querySelectorAll('.slide-in-button, .cta-button').forEach(btn => 
-        btn.addEventListener('click', () => {
+    // Modal handling for buttons and links
+    document.querySelectorAll('[data-modal-target]').forEach(btn => 
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const modal = document.querySelector(btn.getAttribute('data-modal-target'));
             if (modal) {
                 document.body.style.overflow = 'hidden';
                 modal.classList.add('active');
-        }
+            }
         }));
 
     document.querySelectorAll('.close-button').forEach(btn => 
@@ -129,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const modal = btn.closest('.modal');
             if (modal) {
                 document.body.style.overflow = 'auto';
-            modal.classList.remove('active');
-        }
+                modal.classList.remove('active');
+            }
         }));
 
     document.querySelectorAll('.modal').forEach(modal => 
@@ -149,6 +151,63 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMobileMenu(false);
         }
     });
+
+    // Typing Animation
+    const typingElement = document.querySelector('.typing-animation');
+    
+    if (typingElement) {
+        // Function to restart the typing animation
+        function restartTypingAnimation() {
+            typingElement.style.animation = 'none';
+            typingElement.style.width = '0';
+            typingElement.classList.remove('completed');
+            void typingElement.offsetWidth; // Trigger reflow
+            
+            let animationWidth = '380px';
+            
+            // Adjust animation width based on screen size
+            if (window.innerWidth <= 480) {
+                animationWidth = '300px'; // Small mobile
+                typingElement.style.fontSize = '2.2rem';
+            } else if (window.innerWidth <= 768) {
+                animationWidth = '350px'; // Tablet/mobile
+            }
+            
+            // Set animation with custom width (show blink at end)
+            typingElement.style.animation = `typing 1.2s steps(14, end) forwards, blink-cursor 1s step-end infinite`;
+            
+            // Ensure proper centering on mobile
+            if (window.innerWidth <= 768) {
+                typingElement.style.margin = '0 auto';
+                typingElement.style.display = 'block';
+                typingElement.style.textAlign = 'center';
+            }
+            
+            // Add completed class but keep cursor blinking
+            setTimeout(() => {
+                typingElement.classList.add('completed');
+                typingElement.style.width = animationWidth;
+                typingElement.style.animation = 'blink-cursor 1s step-end infinite';
+            }, 1300); // Timeout adjusted to match the animation duration
+        }
+        
+        // Initially restart the animation
+        restartTypingAnimation();
+        
+        // Set up intersection observer to restart when in view
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        restartTypingAnimation();
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+        
+        observer.observe(typingElement);
+    }
 
     // Handle responsive breakpoints
     const handleResponsiveLayout = () => {

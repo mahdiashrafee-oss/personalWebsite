@@ -116,6 +116,14 @@
                     <i class="fas fa-sun"></i>
                 </button>
                 
+                <!-- Main Navigation -->
+                <ul class="nav-menu">
+                    <li><a href="#" data-modal-target="#modalProjects1"><i class="fas fa-desktop"></i> Projects</a></li>
+                    <li><a href="#" data-modal-target="#modalProjects6"><i class="fas fa-code-branch"></i> Contributions</a></li>
+                    <li><a href="#" data-modal-target="#modalProjects5"><i class="fas fa-book"></i> Blog</a></li>
+                    <li><a href="#" data-modal-target="#modalAbout"><i class="fas fa-user"></i> About Me</a></li>
+                </ul>
+                
                 <!-- Mobile Social Icons - Always visible -->
                 <div class="mobile-social-icons">
                     <a href="https://linkedin.com//in/mahdi959" target="_blank" title="LinkedIn" class="social-icon-link">
@@ -135,21 +143,6 @@
                     </div>
                 </button>
             </div>
-            
-            <ul>
-                <li><a href="#intro" class="active">Home</a></li>
-                <!-- Social Icons -->
-                <li class="social-icon-item">
-                    <a href="https://linkedin.com//in/mahdi959" target="_blank" title="LinkedIn" class="social-icon-link">
-                        <i class="fab fa-linkedin fa-lg"></i>
-                    </a>
-                </li>
-                <li class="social-icon-item">
-                    <a href="https://github.com/mahdiashrafee-oss" target="_blank" title="GitHub" class="social-icon-link">
-                        <i class="fab fa-github fa-lg"></i>
-                    </a>
-                </li>
-            </ul>
         </nav>
     </header>
 
@@ -167,13 +160,9 @@
                 <i class="fas fa-desktop"></i>
                 <span>Projects</span>
             </button>
-            <button class="mobile-menu-button" data-modal-target="#modalProjects2">
-                <i class="fas fa-server"></i>
-                <span>APIs</span>
-            </button>
             <button class="mobile-menu-button" data-modal-target="#modalProjects6">
                 <i class="fas fa-code-branch"></i>
-                <span>Open Source</span>
+                <span>Contributions</span>
             </button>
             <button class="mobile-menu-button" data-modal-target="#modalProjects5">
                 <i class="fas fa-book"></i>
@@ -210,21 +199,110 @@
                     
                     <!-- Profile Info on Right -->
                     <div class="profile-info">
-                        <h1 class="greeting typing-animation">Good Day!</h1>
+                        <h1 class="greeting typing-animation">Hi, I'm Mahdi.</h1>
                         
                         <div class="intro-text">
-                            <p>I'm <span class="variable-text">Mahdi</span> — a curious, creative, and passionate developer who loves turning ideas into <span class="string-text">delightful digital experiences</span>.</p>
-                            <p>I enjoy building <span class="function-text">practical tools</span> and <span class="function-text">APIs</span>, especially in <span class="keyword-text">Python</span>, <span class="keyword-text">C</span>, <span class="keyword-text">C++</span> and <span class="keyword-text">Java</span>. I focus on making things that <span class="string-text">work well</span> and are <span class="type-text">free for everyone</span> — no paywalls, no catches.</p>
-                            <p class="vim-tip"><small>Try Vim commands! Press <kbd>Shift</kbd>+<kbd>:</kbd> then type a <kbd>cmd</kbd> like  <kbd>:theme</kbd></small></p>
+                            <p>I'm a <span class="highlight-text">full-stack software engineer</span> with 2+ years of experience. I build software using <span class="keyword-text">Python</span>, <span class="keyword-text">C/C++</span>, <span class="keyword-text">Java</span>, and <span class="keyword-text">JavaScript</span>. I'm familiar with databases like <span class="function-text">PostgreSQL</span> and <span class="function-text">MongoDB</span>.</p>
+                            <p>I'm the developer of <span class="highlight-important">ScamShield API</span>, <span class="highlight-important">Algorithm Visualizer</span>, and several open-source tools. I hold an <span class="function-text">AWS Certified Cloud Practitioner</span> certification and am currently pursuing my B.S. in Computer Science.</p>
+                        </div>
+                        
+                        <!-- Professional CTA Buttons -->
+                        <div class="professional-cta">
+                            <a href="resume.pdf" download class="pro-button primary">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Resume</span>
+                            </a>
+                            <a href="https://github.com/mahdiashrafee-oss" target="_blank" class="pro-button">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com/in/mahdi959" target="_blank" class="pro-button">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <button class="pro-button" onclick="document.getElementById('modalContact').classList.add('active'); document.body.style.overflow = 'hidden';">
+                                <i class="fas fa-envelope"></i>
+                                <span>Contact</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Code Block -->
-                <div class="code-block">
+                <!-- Key Achievements Section -->
+        <section id="achievements" class="section achievements-section">
+            <h2 class="section-title">Key Achievements</h2>
+            
+            <div class="achievements-grid">
+                <!-- Achievement 1 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>ScamShield API</h3>
+                        <p>Designed and developed an intelligent audio analysis API that detects scam tactics from phone call recordings using NLP techniques.</p>
+                        <div class="achievement-tech">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement 2 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-stream"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Algorithm Visualizer</h3>
+                        <p>Created an interactive platform to visualize classic algorithms with minimal code and clean UI. Built for learners, educators, and engineers.</p>
+                        <div class="achievement-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Algorithms</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement 3 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>Open Source Contributions</h3>
+                        <p>Active contributor to open-source projects including AWS CDK improvements and documentation for developer tools.</p>
+                        <div class="achievement-tech">
+                            <span class="tech-tag">GitHub</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Documentation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement 4 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3>terminAI Assistant</h3>
+                        <p>Built a fully Dockerized terminal-based AI assistant with environment-aware configs and support for both cloud and local inference.</p>
+                        <div class="achievement-tech">
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+                <!-- Code Block (Reduced size) -->
+                <div class="code-block code-reduced">
                     <div class="code-header">
                         <div class="file-path">
-                            <i class="fas fa-file-code"></i> ~/skills.csv
+                            <i class="fas fa-file-code"></i> ~/skills.js
                         </div>
                         <div class="code-actions">
                             <div class="code-action close"></div>
@@ -243,65 +321,169 @@
                                 <span>5</span>
                                 <span>6</span>
                                 <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                             
                             </div>
                             
                             <div class="numbered-text">
-                                <p><span class="keyword">const</span> <span class="variable">developer</span> = <span class="string">"Mahdi Ashrafee"</span>;</p>
-                                <p><span class="keyword">const</span> <span class="variable">languages</span> = [<span class="string">"Python"</span>, <span class="string">"C++"</span>, <span class="string">"Java"</span>, <span class="string">"JavaScript"</span>];</p>
-                                <p><span class="keyword">const</span> <span class="variable">cloud</span> = [<span class="string">"AWS EC2"</span>, <span class="string">"S3"</span>, <span class="string">"Lambda"</span>, <span class="string">"DynamoDB"</span>];</p>
-                                <p><span class="keyword">const</span> <span class="variable">expertise</span> = <span class="string">"Cloud Infrastructure & Backend Development"</span>;</p>
-                                <p><span class="keyword">const</span> <span class="variable">exploring</span> = <span class="string">"AWS SageMaker"</span>;</p>
-                                <p><span class="keyword">const</span> <span class="variable">status</span> = <span class="string">"open to collaboration"</span>;</p>
-                                <p><span class="variable">console</span>.<span class="function">log</span>(<span class="string">"Let's build something amazing"</span>)<span class="cursor"></span></p>
+                                <p><span class="keyword">const</span> <span class="variable">developer</span> = {</p>
+                                <p>  <span class="variable">name</span>: <span class="string">"Mahdi Ashrafee"</span>,</p>
+                                <p>  <span class="variable">title</span>: <span class="string">"Full Stack Developer"</span>,</p>
+                                <p>  <span class="variable">certifications</span>: [<span class="string">"AWS Certified Cloud Practitioner"</span>],</p>
+                            
+                                <p>};</p>
+                                <p></p>
+                                <p><span class="keyword">const</span> <span class="variable">skills</span> = {</p>
+                                <p>  <span class="variable">languages</span>: [<span class="string">"Python"</span>, <span class="string">"Java"</span>, <span class="string">"C/C++"</span>, <span class="string">"JavaScript"</span>],</p>
+                                <p>  <span class="variable">cloud</span>: [<span class="string">"AWS"</span>, <span class="string">"Docker"</span>, <span class="string">"CI/CD"</span>],</p>
+                                <p>  <span class="variable">databases</span>: [<span class="string">"PostgreSQL"</span>, <span class="string">"MongoDB"</span>, <span class="string">"DynamoDB"</span>],</p>
+                                <p>  <span class="variable">frameworks</span>: [<span class="string">"FastAPI"</span>, <span class="string">"Flask"</span>, <span class="string">"React"</span>]</p>
+                                <p>};</p>
+                                <p></p>
+                                <p><span class="keyword">const</span> <span class="variable">tools</span> = [</p>
+                                <p>  <span class="string">"Git"</span>, <span class="string">"Linux"</span>, <span class="string">"Nginx"</span>, <span class="string">"VS Code"</span>, <span class="string">"Emacs"</span>,</p>
+                                <p>  <span class="string">"GitHub Actions"</span>, <span class="string">"TensorFlow"</span>, <span class="string">"WebSockets"</span></p>
+                                <p>];</p>
+                                <p></p>
+                              
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- CTA Buttons -->
-                <div class="cta-buttons">
-                    <a href="resume.pdf" download class="cta-button primary">
-                        <i class="fas fa-download"></i>
-                        <span>Download Resume</span>
-                    </a>
-                    <button class="cta-button secondary" onclick="document.getElementById('modalContact').classList.add('active'); document.body.style.overflow = 'hidden';">
-                        <i class="fas fa-envelope"></i>
-                        <span>Contact Me</span>
-                    </button>
-                </div>
             </div>
         </section>
+
+        
     </main>
 
-    <!-- Sliding Buttons with descriptive names -->
-    <div class="slide-in-button-container left-buttons">
-        <button class="slide-in-button from-left" data-modal-target="#modalProjects1">
-        <i class="fas fa-desktop"></i>
-        <span class="button-title">Projects</span>
-    </button>
-        <button class="slide-in-button from-left" data-modal-target="#modalProjects2">
-        <i class="fas fa-server"></i>
-            <span class="button-title">APIs</span>
-    </button>
-        <button class="slide-in-button from-left" data-modal-target="#modalProjects6">
-        <i class="fas fa-code-branch"></i>
-        <span class="button-title">Contributions</span>
-    </button>
+    <!-- Left Sidebar with Education & Certifications -->
+    <div class="left-sidebar">
+        <div class="sidebar-section">
+            <h3>Education</h3>
+            <div class="education-brief">
+                <div class="degree-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="degree-info">
+                    <div class="degree-title">B.S. Computer Science</div>
+                    <div class="school-name">University at Buffalo</div>
+                </div>
+            </div>
     </div>
 
-    <div class="slide-in-button-container right-buttons">
-        <button class="slide-in-button from-right" data-modal-target="#modalProjects5">
-        <i class="fas fa-book"></i>
-        <span class="button-title">Blog</span>
-    </button>
-        <button class="slide-in-button from-right" data-modal-target="#modalSkills">
-        <i class="fas fa-laptop-code"></i>
-        <span class="button-title">Skills</span>
-    </button>
-        <button class="slide-in-button from-right" data-modal-target="#modalAbout">
-        <i class="fas fa-user"></i>
-        <span class="button-title">About Me</span>
-    </button>
+        <div class="sidebar-section">
+            <h3>Certifications</h3>
+            <div class="cert-items">
+                <div class="sidebar-cert-block">
+                    <i class="fab fa-aws"></i>
+                    <span>AWS Certified Cloud Practitioner</span>
+                </div>
+                <div class="sidebar-cert-block">
+                    <i class="fab fa-aws"></i>
+                    <span>AWS Solutions Architect (In Progress)</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-section sidebar-tip">
+            <div class="vim-command-tip">
+                <i class="fas fa-lightbulb"></i>
+                <span>Try <kbd>Shift</kbd>+<kbd>:</kbd>theme to toggle themes</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Stack Sidebar -->
+    <div class="tech-stack-sidebar">
+        <h3 class="sidebar-heading">Core Technologies</h3>
+        
+        <div class="tech-category tech-category-highlight">
+            <h3>Core Expertise</h3>
+            <div class="tech-badges">
+                <div class="tech-badge">Python</div>
+                <div class="tech-badge">AWS</div>
+                <div class="tech-badge">C++</div>
+                <div class="tech-badge">FastAPI</div>
+                <div class="tech-badge">PostgreSQL</div>
+                <div class="tech-badge">TensorFlow</div>
+            </div>
+        </div>
+        
+        <div class="tech-category">
+            <h3>Programming</h3>
+            <div class="skill-list">
+                <div class="skill-item">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-level">
+                        <div class="skill-meter advanced"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">Java</div>
+                    <div class="skill-level">
+                        <div class="skill-meter advanced"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">C/C++</div>
+                    <div class="skill-level">
+                        <div class="skill-meter intermediate"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">JavaScript</div>
+                    <div class="skill-level">
+                        <div class="skill-meter intermediate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tech-category">
+            <h3>Backend & Cloud</h3>
+            <div class="skill-list">
+                <div class="skill-item">
+                    <div class="skill-name">AWS</div>
+                    <div class="skill-level">
+                        <div class="skill-meter advanced"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">FastAPI</div>
+                    <div class="skill-level">
+                        <div class="skill-meter advanced"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">Docker</div>
+                    <div class="skill-level">
+                        <div class="skill-meter intermediate"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">PostgreSQL</div>
+                    <div class="skill-level">
+                        <div class="skill-meter advanced"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">TensorFlow</div>
+                    <div class="skill-level">
+                        <div class="skill-meter intermediate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Status Bar (Vim-style) -->

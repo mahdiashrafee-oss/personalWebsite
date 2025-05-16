@@ -238,12 +238,23 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    min-height: 100vh; /* Use min-height instead of fixed height */
-    overflow-y: visible; /* Ensure content can overflow and be scrollable */
+    width: calc(100% - 460px); /* Adjust for left and right sidebars */
+    margin-left: 220px; /* Match left sidebar width */
+    min-height: 100vh;
+    overflow-y: visible;
 }
+
+/* Key Achievements Section */
+.achievements-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 5; /* Ensure it's above sidebars */
+}
+
 .section { 
-    padding: 6rem 5% 5rem; 
+    padding: 3rem 5% 2rem; 
     margin: 0 auto; 
     max-width: 1000px; 
     position: relative; 
@@ -267,15 +278,14 @@ main {
 
 /* --- Intro Section --- */
 #intro { 
-    padding-top: 60px; 
+    padding-top: 80px; 
     padding-bottom: 1rem; 
-    min-height: 100vh; 
+    min-height: 90vh; 
     display: flex;
     align-items: center;
     position: relative;
     text-align: left;
     justify-content: center;
-    width: 100%;
 }
 
 #intro::before {
@@ -296,10 +306,11 @@ main {
     align-items: center;
     justify-content: center;
     width: 100%; 
-    max-width: 860px;
+    max-width: 800px;
     margin: 0 auto;
     position: relative;
     gap: 1.5rem;
+    padding: 1rem;
 }
 
 .profile-header {
@@ -307,7 +318,7 @@ main {
     align-items: flex-start;
     width: 100%;
     gap: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .profile-section {
@@ -364,7 +375,7 @@ main {
 .greeting {
     font-size: 2.8rem;
     font-weight: 700;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
     color: var(--text-color);
     line-height: 1.1;
     font-family: var(--font-family-sans);
@@ -452,22 +463,24 @@ main {
 }
 
 .code-content {
-    padding: 12px;
+    padding: 20px;
     position: relative;
 }
 
 .intro-with-line-numbers {
     position: relative;
-    padding-left: 28px;
+    padding-left: 40px;
+    font-size: 0.92rem;
+    line-height: 1.5;
 }
 
 .intro-line-numbers {
     position: absolute;
     left: 0;
     top: 0;
-    width: 24px;
+    width: 35px;
     color: var(--comment-color);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-align: right;
     user-select: none;
     padding-top: 2px;
@@ -476,7 +489,7 @@ main {
 
 .intro-line-numbers span {
     display: block;
-    line-height: 1.7;
+    line-height: 1.73;
     padding-right: 8px;
 }
 
@@ -1258,58 +1271,6 @@ footer {
     
     .cursor {
         height: 14px;
-    }
-    
-    /* Modal adjustments */
-    .modal-content {
-        width: 95%;
-        padding: 20px;
-    }
-    
-    /* Project card adjustments */
-    .project-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 16px;
-    }
-    
-    .project-card {
-        padding: 16px;
-    }
-    
-    /* About page adjustments */
-    .about-title {
-        font-size: 1.8rem;
-    }
-    
-    .professional-summary p {
-        font-size: 1rem;
-    }
-    
-    .focus-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-    
-    .focus-icon {
-        margin-bottom: 6px;
-    }
-    
-    .certification-badges img {
-        height: 24px;
-    }
-    
-    /* Center typing animation */
-    .typing-animation {
-        width: 0;
-        margin: 0 auto;
-        display: block;
-    }
-    
-    .mobile-social-icons {
-        display: flex;
-        gap: 5px;
-        margin-right: 6px;
     }
 }
 
@@ -2189,12 +2150,14 @@ footer {
     margin: 0;
     width: 0;
     animation: 
-        typing 0.8s steps(9, end) forwards;
+        typing 1.2s steps(14, end) forwards,
+        blink-cursor 1s step-end infinite;
     position: relative;
 }
 
 .typing-animation.completed {
-    border-right: none;
+    border-right: 0.15em solid var(--accent-color); /* Keep the cursor visible */
+    animation: blink-cursor 1s step-end infinite;
 }
 
 /* Add animation to hide cursor after typing completes */
@@ -2203,7 +2166,17 @@ footer {
         width: 0;
     }
     to { 
-        width: 240px;
+        width: 380px;
+    }
+}
+
+/* Cursor blink animation */
+@keyframes blink-cursor {
+    0%, 100% { 
+        border-right-color: var(--accent-color); 
+    }
+    50% { 
+        border-right-color: transparent; 
     }
 }
 
@@ -2217,7 +2190,7 @@ footer {
     
     @keyframes typing {
         from { width: 0 }
-        to { width: 210px }
+        to { width: 350px }
     }
     
     /* Center the animation on mobile screens */
@@ -2230,7 +2203,7 @@ footer {
 @media (max-width: 480px) {
     @keyframes typing {
         from { width: 0 }
-        to { width: 190px }
+        to { width: 230px }
     }
     
     .greeting {
@@ -2467,6 +2440,745 @@ footer {
 .light-theme .code-span {
     background-color: rgba(0, 0, 0, 0.05);
     color: var(--highlight-function);
+}
+
+/* Navigation Menu Styling */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.nav-menu a:hover {
+    color: var(--accent-color);
+    background-color: rgba(var(--accent-rgb), 0.1);
+}
+
+.nav-menu a i {
+    margin-right: 6px;
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+}
+
+/* Tech Stack Sidebar */
+.tech-stack-sidebar {
+    position: fixed;
+    top: 80px;
+    right: 15px;
+    width: 220px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.sidebar-heading {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    color: var(--heading-color);
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tech-category {
+    margin-bottom: 1rem;
+}
+
+.tech-category h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    position: relative;
+    padding-left: 15px;
+    color: var(--heading-color);
+}
+
+.tech-category h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/* Core Expertise Section */
+.tech-category-highlight {
+    background-color: rgba(var(--accent-rgb), 0.07);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.tech-category-highlight h3 {
+    margin-bottom: 12px;
+    color: var(--accent-color);
+    text-align: center;
+    padding-left: 0;
+}
+
+.tech-category-highlight h3::before {
+    display: none;
+}
+
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.tech-badge {
+    background: var(--gradient-blue);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tech-badge:nth-child(2) {
+    background: var(--gradient-purple);
+}
+
+.tech-badge:nth-child(3) {
+    background: var(--gradient-green);
+}
+
+.tech-badge:nth-child(4) {
+    background: var(--gradient-orange);
+}
+
+.tech-badge:nth-child(5) {
+    background: linear-gradient(135deg, #2ac3de, #7dcfff);
+}
+
+/* Skill Meters */
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.skill-name {
+    color: var(--text-color);
+    min-width: 40%;
+}
+
+.skill-level {
+    width: 58%;
+    height: 6px;
+    background-color: rgba(var(--accent-rgb), 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill-meter {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gradient-blue);
+}
+
+.skill-meter.beginner {
+    width: 30%;
+}
+
+.skill-meter.intermediate {
+    width: 65%;
+}
+
+.skill-meter.advanced {
+    width: 90%;
+}
+
+.skill-meter.expert {
+    width: 98%;
+}
+
+/* Left Sidebar */
+.left-sidebar {
+    position: fixed;
+    top: 80px;
+    left: 15px;
+    width: 220px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.sidebar-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-section h3 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    position: relative;
+    padding-left: 15px;
+    color: var(--heading-color);
+}
+
+.sidebar-section h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.education-brief {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background-color: rgba(var(--accent-rgb), 0.05);
+    border-radius: 6px;
+}
+
+.degree-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--accent-rgb), 0.1);
+    border-radius: 50%;
+}
+
+.degree-icon i {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.degree-info {
+    flex-grow: 1;
+}
+
+.degree-title {
+    color: var(--heading-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.school-name {
+    color: var(--text-color);
+    font-size: 0.75rem;
+}
+
+.cert-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-cert-block {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: rgba(var(--accent-rgb), 0.05);
+    border-radius: 6px;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-cert-block:hover {
+    background-color: rgba(var(--accent-rgb), 0.1);
+    transform: translateX(3px);
+}
+
+.sidebar-cert-block i {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.sidebar-cert-block span {
+    color: var(--text-color);
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+/* Professional CTA Buttons */
+.professional-cta {
+    display: flex;
+    gap: 12px;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pro-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.pro-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    color: var(--accent-color);
+}
+
+.pro-button.primary {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+}
+
+.pro-button.primary:hover {
+    background-color: var(--accent-hover);
+    color: var(--primary-color);
+}
+
+.pro-button i {
+    font-size: 1rem;
+}
+
+/* Reduced Code Block */
+.code-reduced {
+    max-height: 600px;
+    overflow: visible;
+}
+
+.highlight-text {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.highlight-important {
+    color: var(--highlight-important);
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .tech-stack-sidebar, .left-sidebar {
+        width: 200px;
+        padding: 12px;
+    }
+    
+    .tech-stack-sidebar {
+        right: 10px;
+    }
+    
+    .left-sidebar {
+        left: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .tech-stack-sidebar, .left-sidebar {
+        display: none;
+    }
+    
+    .professional-cta {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .professional-cta {
+        justify-content: center;
+    }
+    
+    .pro-button {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+.sidebar-tip {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+}
+
+.vim-command-tip {
+    background-color: rgba(var(--accent-rgb), 0.08);
+    border-radius: 6px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    border-left: 3px solid var(--accent-color);
+}
+
+.vim-command-tip i {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+.vim-command-tip kbd {
+    font-family: var(--font-family-sans);
+    background-color: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent-color);
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+
+/* Key Achievements Section */
+.achievements-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    width: 100%;
+    position: relative;
+    z-index: 5; /* Ensure it's above sidebars */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--heading-color);
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-blue);
+    border-radius: 2px;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.achievement-card {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.achievement-icon {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    width: 70px;
+    flex-shrink: 0;
+}
+
+.achievement-icon i {
+    background: var(--gradient-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.achievement-card:nth-child(2) .achievement-icon i {
+    background: var(--gradient-green);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.achievement-card:nth-child(3) .achievement-icon i {
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.achievement-card:nth-child(4) .achievement-icon i {
+    background: var(--gradient-orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.achievement-content {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    flex-grow: 1;
+}
+
+.achievement-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+.achievement-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+}
+
+.achievement-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tech-tag {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    background-color: rgba(var(--accent-rgb), 0.1);
+    color: var(--accent-color);
+    border-radius: 4px;
+}
+
+/* Responsive adjustments for achievements section */
+@media (max-width: 992px) {
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        max-width: 90%;
+    }
+    
+    .achievement-card {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .achievement-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .achievement-icon {
+        width: 100%;
+        padding-bottom: 0.5rem;
+    }
+    
+    .achievement-content {
+        padding: 0 1.5rem 1.5rem;
+    }
+    
+    .achievement-tech {
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+}
+
+/* Adjust code block for different screen sizes */
+@media (max-width: 992px) {
+    .code-reduced {
+        max-height: 550px;
+    }
+}
+
+@media (max-width: 768px) {
+    .code-reduced {
+        max-height: 520px;
+    }
+}
+
+@media (max-width: 768px) {
+    .typing-animation {
+        width: 0;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 270px }
+    }
+    
+    /* Center the animation on mobile screens */
+    .greeting.typing-animation {
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    /* Modal adjustments */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    /* Project card adjustments */
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+    }
+    
+    .project-card {
+        padding: 16px;
+    }
+    
+    /* About page adjustments */
+    .about-title {
+        font-size: 1.8rem;
+    }
+    
+    .professional-summary p {
+        font-size: 1rem;
+    }
+    
+    .focus-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .focus-icon {
+        margin-bottom: 6px;
+    }
+    
+    .certification-badges img {
+        height: 24px;
+    }
+    
+    /* Center typing animation */
+    .typing-animation {
+        width: 0;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    .mobile-social-icons {
+        display: flex;
+        gap: 5px;
+        margin-right: 6px;
+    }
+}
+
+/* Responsive adjustments for main content */
+@media (max-width: 1200px) {
+    main {
+        width: calc(100% - 220px);
+        margin-left: 200px;
+    }
+    
+    /* Hide right sidebar on medium screens to prevent text overlap */
+    .tech-stack-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    main {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    #intro {
+        padding-top: 100px;
+    }
+    
+    .left-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 260px }
+    }
+    
+    .greeting {
+        font-size: 2.2rem;
+    }
 }
 
 
