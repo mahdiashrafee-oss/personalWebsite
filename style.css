@@ -2567,7 +2567,7 @@ footer {
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600; /* Increased from 500 for better visibility */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -2585,6 +2585,30 @@ footer {
 
 .tech-badge:nth-child(5) {
     background: linear-gradient(135deg, #2ac3de, #7dcfff);
+}
+
+/* Improve contrast for light theme */
+.light-theme .tech-badge {
+    color: #111111; /* Much darker text for light theme */
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3); /* Add subtle text shadow for better readability */
+}
+
+.light-theme .tech-category-highlight {
+    background-color: rgba(13, 185, 215, 0.15); /* Slightly stronger background in light mode */
+}
+
+/* Improve contrast for other text elements in light theme */
+.light-theme .skill-name {
+    color: #333333; /* Darker text for skill names in light theme */
+}
+
+.light-theme .achievement-content h3 {
+    color: #222222; /* Darker heading color in light theme */
+}
+
+.light-theme .greeting,
+.light-theme .intro-text p {
+    color: #333333; /* Darker text for intro text in light theme */
 }
 
 /* Skill Meters */
