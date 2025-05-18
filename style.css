@@ -34,6 +34,13 @@
     --warning-color: #e0af68;
     --success-color: #73daca;
     
+    /* Scrollbar Colors */
+    --scrollbar-thin-width: 6px;
+    --scrollbar-regular-width: 10px;
+    --scrollbar-track-color: rgba(0, 0, 0, 0.1);
+    --scrollbar-thumb-color: var(--accent-color);
+    --scrollbar-thumb-hover-color: var(--accent-hover);
+    
     /* Gradient Colors */
     --gradient-blue: linear-gradient(135deg, #7aa2f7, #2ac3de);
     --gradient-purple: linear-gradient(135deg, #bb9af7, #9d7cd8);
@@ -93,13 +100,51 @@
     --highlight-comment: #848cb5;
     --highlight-important: #c53b53;
     --highlight-tech: #0db9d7;
+    
+    /* Scrollbar colors for light theme */
+    --scrollbar-track-color: rgba(0, 0, 0, 0.05);
+    --scrollbar-thumb-color: var(--accent-color);
+    --scrollbar-thumb-hover-color: var(--accent-hover);
 }
 
 /* --- Reset --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* --- Base Styles --- */
-html { scroll-behavior: smooth; font-size: 16px; }
+html { 
+    scroll-behavior: smooth; 
+    font-size: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* Global Scrollbar styling */
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: var(--scrollbar-regular-width);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
 body {
     font-family: var(--font-family-sans);
     color: var(--text-color);
@@ -238,8 +283,8 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: calc(100% - 460px); /* Adjust for left and right sidebars */
-    margin-left: 220px; /* Match left sidebar width */
+    width: calc(100% - 300px);
+    margin-left: 300px;
     min-height: 100vh;
     overflow-y: visible;
 }
@@ -254,9 +299,9 @@ main {
 }
 
 .section { 
-    padding: 3rem 5% 2rem; 
+    padding: 3rem 4% 2rem; 
     margin: 0 auto; 
-    max-width: 1000px; 
+    max-width: 1080px; 
     position: relative; 
 }
 .section h2 { 
@@ -306,7 +351,7 @@ main {
     align-items: center;
     justify-content: center;
     width: 100%; 
-    max-width: 800px;
+    max-width: 950px;
     margin: 0 auto;
     position: relative;
     gap: 1.5rem;
@@ -727,6 +772,27 @@ main {
     flex-grow: 1;
     padding-right: 15px;
     margin-right: -15px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) transparent;
+}
+
+.modal-scroll-content::-webkit-scrollbar {
+    width: var(--scrollbar-thin-width);
+}
+
+.modal-scroll-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-scroll-content::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+}
+
+.modal-scroll-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
 }
 
 .close-button {
@@ -1129,11 +1195,40 @@ footer {
     }
     
     .profile-header {
-        gap: 2rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-section {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .profile-info {
+        width: 100%;
+        padding-top: 0.5rem;
     }
     
     .greeting {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    .intro-text {
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    .professional-cta {
+        justify-content: center;
+    }
+    
+    .profile-pic-box {
+        width: 170px;
+        height: 170px;
     }
     
     .intro-text p {
@@ -1147,14 +1242,6 @@ footer {
     
     .code-block {
     max-width: 100%;
-    }
-    
-    .profile-section {
-        margin-top: 0.5rem;
-    }
-    
-    .profile-info {
-        padding-top: 1.2rem;
     }
     
     .code-content {
@@ -2153,11 +2240,13 @@ footer {
         typing 1.2s steps(14, end) forwards,
         blink-cursor 1s step-end infinite;
     position: relative;
+    display: inline-block;
 }
 
 .typing-animation.completed {
     border-right: 0.15em solid var(--accent-color); /* Keep the cursor visible */
     animation: blink-cursor 1s step-end infinite;
+    white-space: nowrap;
 }
 
 /* Add animation to hide cursor after typing completes */
@@ -2186,17 +2275,19 @@ footer {
         width: 0;
         margin: 0 auto;
         display: block;
+        white-space: nowrap;
     }
     
     @keyframes typing {
         from { width: 0 }
-        to { width: 350px }
+        to { width: 340px }
     }
     
     /* Center the animation on mobile screens */
     .greeting.typing-animation {
         text-align: center;
         margin: 0 auto;
+        white-space: nowrap;
     }
 }
 
@@ -2208,6 +2299,7 @@ footer {
     
     .greeting {
         font-size: 2.2rem;
+        white-space: nowrap;
     }
 }
 
@@ -2253,6 +2345,27 @@ footer {
     flex-grow: 1;
     overflow-y: auto;
     padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) transparent;
+}
+
+.buffer-list::-webkit-scrollbar {
+    width: var(--scrollbar-thin-width);
+}
+
+.buffer-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.buffer-list::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+}
+
+.buffer-list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
 }
 
 .buffer-item {
@@ -2483,23 +2596,7 @@ footer {
     }
 }
 
-/* Tech Stack Sidebar */
-.tech-stack-sidebar {
-    position: fixed;
-    top: 80px;
-    right: 15px;
-    width: 220px;
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    transition: all 0.3s ease;
-}
-
+/* Sidebar Heading */
 .sidebar-heading {
     text-align: center;
     font-size: 1.1rem;
@@ -2537,10 +2634,10 @@ footer {
 
 /* Core Expertise Section */
 .tech-category-highlight {
-    background-color: rgba(var(--accent-rgb), 0.07);
+    background-color: rgba(var(--accent-rgb), 0.1);
     border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 20px;
+    padding: 16px;
+    margin-bottom: 25px;
 }
 
 .tech-category-highlight h3 {
@@ -2564,11 +2661,12 @@ footer {
 .tech-badge {
     background: var(--gradient-blue);
     color: var(--primary-color);
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600; /* Increased from 500 for better visibility */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-bottom: 4px;
 }
 
 .tech-badge:nth-child(2) {
@@ -2609,6 +2707,92 @@ footer {
 .light-theme .greeting,
 .light-theme .intro-text p {
     color: #333333; /* Darker text for intro text in light theme */
+}
+
+/* Left Sidebar Toggle Button */
+.sidebar-toggle, .blog-sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    color: var(--accent-color);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar-toggle::before, .blog-sidebar-toggle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-blue);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.sidebar-toggle:hover::before, .blog-sidebar-toggle:hover::before {
+    opacity: 1;
+}
+
+.sidebar-toggle i, .blog-sidebar-toggle i {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-toggle:hover i, .blog-sidebar-toggle:hover i {
+    transform: translateY(-2px);
+    color: var(--accent-color);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    left: 20px;
+    bottom: 50px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 998;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    animation: bounce 2s infinite;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-indicator i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+    60% {
+        transform: translateY(-4px);
+    }
 }
 
 /* Skill Meters */
@@ -2665,21 +2849,56 @@ footer {
     position: fixed;
     top: 80px;
     left: 15px;
-    width: 220px;
+    width: 280px;
     background-color: var(--secondary-color);
     border-radius: 10px;
     border: 1px solid var(--border-color);
-    padding: 15px;
+    padding: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     z-index: 10;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     transition: all 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) transparent;
+}
+
+.left-sidebar::-webkit-scrollbar {
+    width: var(--scrollbar-thin-width);
+}
+
+.left-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.left-sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+}
+
+.left-sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover-color);
+}
+
+/* Main content adjustment */
+main { 
+    position: relative; 
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 300px);
+    margin-left: 300px;
+    padding: 0 15px;
+    min-height: 100vh;
+    overflow-y: visible;
 }
 
 .sidebar-section {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -2839,38 +3058,132 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-    .tech-stack-sidebar, .left-sidebar {
-        width: 200px;
-        padding: 12px;
-    }
-    
-    .tech-stack-sidebar {
-        right: 10px;
-    }
-    
     .left-sidebar {
+        width: 240px;
+        padding: 16px;
         left: 10px;
     }
+    
+    main {
+        width: calc(100% - 270px);
+        margin-left: 270px;
+        padding: 0 12px;
+    }
 }
 
-@media (max-width: 992px) {
-    .tech-stack-sidebar, .left-sidebar {
-        display: none;
+@media (max-width: 1200px) {
+    /* Mobile sidebar styles */
+    .left-sidebar {
+        position: fixed;
+        top: 60px;
+        left: -300px;
+        width: 280px;
+        height: 100vh;
+        max-height: none;
+        overflow-y: auto;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        background-color: var(--secondary-color);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        border-radius: 0;
+        border-top: none;
     }
     
-    .professional-cta {
-        justify-content: center;
+    .left-sidebar.active {
+        left: 0;
     }
-}
-
-@media (max-width: 768px) {
+    
+    .sidebar-toggle {
+        display: flex;
+    }
+    
+    main {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 20px;
+    }
+    
+    /* Remove flex reordering */
+    body {
+        display: block;
+    }
+    
+    /* Adjust the sidebar sections for vertical layout */
+    .tech-category-highlight {
+        padding: 20px;
+    }
+    
+    .tech-badges {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .skill-list {
+        max-width: 100%;
+    }
+    
+    .tech-category h3 {
+        text-align: left;
+        font-size: 1rem;
+        padding-left: 15px;
+    }
+    
+    .tech-category h3::before {
+        display: block;
+    }
+    
+    .sidebar-section h3 {
+        text-align: left;
+        font-size: 1rem;
+        padding-left: 15px;
+    }
+    
+    .sidebar-section h3::before {
+        display: block;
+    }
+    
+    .cert-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .sidebar-cert-block {
+        width: 100%;
+        min-width: 0;
+    }
+    
+    .education-brief {
+        max-width: 100%;
+    }
+    
+    /* Sidebar heading */
+    .sidebar-heading {
+        margin-top: 0;
+        font-size: 1.1rem;
+    }
+    
+    /* Professional buttons */
     .professional-cta {
         justify-content: center;
     }
     
     .pro-button {
-        padding: 6px 14px;
-        font-size: 0.8rem;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile refinements */
+    .left-sidebar {
+        padding: 20px;
+    }
+    
+    .tech-badge {
+        padding: 7px 10px;
+        font-size: 0.82rem;
     }
 }
 
@@ -2942,10 +3255,10 @@ footer {
 
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
     gap: 1.5rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1080px;
     margin: 0 auto;
 }
 
@@ -3036,24 +3349,71 @@ footer {
 }
 
 /* Responsive adjustments for achievements section */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
     .achievements-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .achievements-grid {
-        grid-template-columns: 1fr;
-        max-width: 90%;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        max-width: 85%;
     }
     
     .achievement-card {
         max-width: 100%;
     }
     
-    .section-title {
-        font-size: 1.8rem;
+    /* Refine sidebar and content for medium screens */
+    .left-sidebar {
+        max-width: 700px;
+        padding: 20px;
+    }
+    
+    .tech-category-highlight {
+        padding: 20px;
+    }
+    
+    .sidebar-cert-block {
+        min-width: 250px;
+    }
+    
+    .tech-badges {
+        gap: 12px;
+    }
+    
+    .skill-list {
+        max-width: 550px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile refinements */
+    .left-sidebar {
+        padding: 20px;
+        max-width: 600px;
+    }
+    
+    .tech-badge {
+        padding: 7px 10px;
+        font-size: 0.82rem;
+    }
+    
+    .sidebar-cert-block {
+        min-width: 200px;
+    }
+    
+    /* Make typing animation narrower on smaller screens */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 300px }
+    }
+    
+    /* Make achievement cards stack on mobile */
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        max-width: 90%;
     }
 }
 
@@ -3083,9 +3443,13 @@ footer {
 }
 
 /* Adjust code block for different screen sizes */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
     .code-reduced {
         max-height: 550px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
     }
 }
 
@@ -3166,42 +3530,120 @@ footer {
     }
 }
 
-/* Responsive adjustments for main content */
+/* Responsive adjustments for main content - updated */
 @media (max-width: 1200px) {
-    main {
-        width: calc(100% - 220px);
-        margin-left: 200px;
-    }
-    
-    /* Hide right sidebar on medium screens to prevent text overlap */
-    .tech-stack-sidebar {
-        display: none;
-    }
-}
-
-@media (max-width: 992px) {
-    main {
-        width: 100%;
-        margin-left: 0;
-    }
-    
     #intro {
         padding-top: 100px;
+        padding-bottom: 2rem;
     }
     
-    .left-sidebar {
-        display: none;
+    .typing-animation {
+        width: 0;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 350px }
+    }
+    
+    /* Center the animation on medium screens */
+    .greeting.typing-animation {
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    /* Improve code block size */
+    .code-block {
+        max-width: 90%;
     }
 }
 
 @media (max-width: 480px) {
     @keyframes typing {
         from { width: 0 }
-        to { width: 260px }
+        to { width: 288px }
     }
     
     .greeting {
         font-size: 2.2rem;
+        white-space: nowrap;
+    }
+}
+
+.tech-category {
+    margin-bottom: 1.5rem;
+}
+
+.tech-category h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.skill-level {
+    width: 55%;
+    height: 7px;
+    background-color: rgba(var(--accent-rgb), 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .left-sidebar {
+        padding: 15px;
+    }
+    
+    main {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 10px;
+    }
+    
+    .greeting {
+        font-size: 2rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cert-items {
+        flex-direction: column;
+    }
+    
+    .sidebar-cert-block {
+        width: 100%;
+    }
+    
+    .tech-badges {
+        gap: 8px;
+    }
+    
+    .tech-badge {
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 }
 

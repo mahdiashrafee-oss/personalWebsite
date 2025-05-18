@@ -27,12 +27,19 @@
         
         main {
             min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+            margin-top: 60px;
         }
         
         .blog-container {
             max-width: 900px;
             margin: 0 auto;
             padding: 30px 25px 50px;
+            flex-grow: 1;
         }
         
         .blog-header {
@@ -60,12 +67,14 @@
             font-size: 1.08rem;
             max-width: 100%;
             letter-spacing: 0.01rem;
+            transition: font-size 0.3s ease;
         }
         
         .blog-content p:first-of-type {
             font-size: 1.2rem;
             font-weight: 500;
             color: var(--accent-color);
+            transition: font-size 0.3s ease;
         }
         
         .blog-content p strong {
@@ -85,131 +94,387 @@
             border: 1px solid var(--border-color);
         }
         
-        .image-container {
-            display: flex;
-            justify-content: space-between;
-            margin: 50px 0;
-            flex-wrap: wrap;
-            gap: 30px;
-            position: relative;
+        /* Blog sidebar styles */
+        .blog-sidebar {
+            position: sticky;
+            top: 80px;
+            width: 280px;
+            background-color: var(--secondary-color);
+            border-radius: 0 10px 10px 0;
+            border: 1px solid var(--border-color);
+            border-left: none;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb-color) transparent;
+            flex-shrink: 0;
+            margin-top: 0;
         }
         
-        .image-wrap {
-            overflow: hidden;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            position: relative;
-            max-height: 350px;
+        .blog-sidebar::-webkit-scrollbar {
+            width: var(--scrollbar-thin-width);
         }
         
-        .image-wrap:after {
+        .blog-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .blog-sidebar::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color);
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background-clip: content-box;
+        }
+        
+        .blog-sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: var(--scrollbar-thumb-hover-color);
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .sidebar-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            position: relative;
+            padding-left: 15px;
+            color: var(--heading-color);
+        }
+        
+        .sidebar-section h3::before {
             content: "";
             position: absolute;
-            top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(
-                rgba(var(--accent-rgb), 0.08),
-                rgba(0, 0, 0, 0.05)
-            );
-            pointer-events: none;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: currentColor;
         }
         
-        .image-wrap img {
-            object-fit: contain;
-            width: 100%;
-            height: auto;
-            max-height: 350px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.4s ease;
-        }
-        
-        .image-box:hover .image-wrap img {
-            transform: scale(1.03);
-        }
-        
-        .image-box {
-            position: relative;
-            width: calc(50% - 15px);
-            background-color: var(--secondary-color);
+        /* Font size controls */
+        .font-size-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+            background-color: rgba(var(--accent-rgb), 0.05);
             border-radius: 8px;
-            padding: 18px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            padding: 10px 12px;
+        }
+        
+        .font-size-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            flex-grow: 1;
+        }
+        
+        .font-size-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-color);
             border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
+            color: var(--text-color);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
         
-        .image-box:before {
-            content: "/* Image */";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            opacity: 0.6;
-            z-index: 1;
-        }
-        
-        .image-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .image-box:hover:before {
+        .font-size-btn:hover {
             color: var(--accent-color);
-            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        .image-caption {
+        /* Blog options */
+        .blog-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .blog-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background-color: rgba(var(--accent-rgb), 0.05);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .blog-option:hover {
+            background-color: rgba(var(--accent-rgb), 0.1);
+            transform: translateX(3px);
+        }
+        
+        .blog-option i {
+            color: var(--accent-color);
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .blog-option span {
+            color: var(--text-color);
             font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 8px;
-            line-height: 1.4;
-            transition: color 0.3s ease;
-            position: relative;
-            padding-left: 18px;
         }
         
-        .image-caption:before {
-            content: "//";
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--accent-color);
-            opacity: 0.7;
-            font-family: 'JetBrains Mono', monospace;
+        /* Text Color Controls */
+        .text-color-controls {
+            margin-top: 15px;
         }
         
-        .image-box:hover .image-caption {
+        .color-option-title {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
             color: var(--text-color);
         }
         
-        .image-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 3px;
-            color: var(--accent-color);
-            font-family: 'JetBrains Mono', monospace;
+        .color-picker-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         
-        .highlight {
-            color: var(--accent-color);
-            font-weight: 500;
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background-color: transparent;
         }
         
-        .highlight-text {
-            background: rgba(var(--accent-rgb), 0.1);
-            padding: 0 5px;
+        .color-option:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+        }
+        
+        .color-option.active {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 5px rgba(var(--accent-rgb), 0.5);
+        }
+        
+        .default-color {
+            background-color: var(--text-color);
+            color: var(--primary-color);
+        }
+        
+        .color-option i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+        
+        /* Custom color picker styling */
+        .custom-color-picker {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .custom-color-picker:after {
+            content: "+";
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+        
+        #customColorInput {
+            position: absolute;
+            cursor: pointer;
+            width: 150%;
+            height: 150%;
+            left: -25%;
+            top: -25%;
+            opacity: 0;
+        }
+        
+        /* Text Brightness Controls */
+        .text-brightness-controls {
+            margin-top: 15px;
+        }
+        
+        .brightness-title {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+        
+        .brightness-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .brightness-slider {
+            flex-grow: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.8));
             border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .brightness-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .brightness-label {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .brightness-value {
+            font-size: 0.8rem;
+            color: var(--comment-color);
+            text-align: center;
+        }
+        
+        /* Back button in sidebar */
+        .back-option {
+            margin-bottom: 15px;
+            background-color: var(--primary-color);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .back-option:hover {
+            transform: translateX(3px);
+            background-color: rgba(var(--accent-rgb), 0.15);
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            text-decoration: none;
+        }
+        
+        .back-link i {
+            color: var(--accent-color);
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .back-link span {
+            color: var(--text-color);
+            font-size: 0.85rem;
+        }
+        
+        /* Blog navigation */
+        .blog-nav-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: rgba(var(--accent-rgb), 0.05);
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .blog-nav-item:hover {
+            opacity: 0.8;
+        }
+        
+        .blog-nav-item.active {
+            border-left-color: var(--accent-color);
+            background-color: rgba(var(--accent-rgb), 0.1);
+            opacity: 1;
+            cursor: pointer;
+        }
+        
+        .blog-nav-item.active:hover {
+            transform: translateX(3px);
+        }
+        
+        .blog-nav-icon {
+            color: var(--accent-color);
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .blog-nav-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-nav-title {
+            font-size: 0.85rem;
+            color: var(--text-color);
             font-weight: 500;
         }
         
-        .back-button {
+        .blog-nav-date {
+            font-size: 0.75rem;
+            color: var(--comment-color);
+        }
+        
+        /* Mobile sidebar toggle */
+        .blog-sidebar-toggle {
+            display: none;
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 20px;
             background-color: var(--secondary-color);
             border: 1px solid var(--border-color);
@@ -217,19 +482,52 @@
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             z-index: 100;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        .blog-sidebar-toggle i {
+            font-size: 1.2rem;
             color: var(--accent-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1150px) {
+            .blog-sidebar {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            main {
+                flex-direction: column;
+            }
+            
+            .blog-sidebar {
+                position: fixed;
+                top: 60px;
+                left: -300px;
+                width: 280px;
+                height: 100vh;
+                border-radius: 0;
+                margin-top: 0;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                background-color: var(--secondary-color); /* Ensure background is solid */
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+            }
+            
+            .blog-sidebar.active {
+                left: 0;
+            }
+            
+            .blog-sidebar-toggle {
+                display: flex;
+                z-index: 999;
+            }
         }
         
         @media (max-width: 768px) {
@@ -295,13 +593,6 @@
             
             .image-caption:before {
                 font-size: 0.9rem;
-            }
-            
-            .back-button {
-                top: 15px;
-                left: 15px;
-                width: 35px;
-                height: 35px;
             }
         }
         
@@ -455,6 +746,32 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
         }
+        
+        .image-box:hover .image-caption {
+            color: var(--text-color);
+        }
+        
+        .image-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        .highlight-text {
+            background: rgba(var(--accent-rgb), 0.1);
+            padding: 0 5px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+
         
         /* Development setup styling */
         .dev-setup {
@@ -881,11 +1198,185 @@
     </style>
 </head>
 <body class="dark-theme">
-    <a href="index.html" class="back-button" title="Back to Home">
-        <i class="fas fa-arrow-left"></i>
-    </a>
+    <header>
+        <nav>
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html" class="logo-link">Mahdi Ashrafee</a>
+            </div>
+            
+            <!-- Header Icons Group -->
+            <div class="header-icons-group">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" title="Toggle Dark/Light Mode" class="header-theme-toggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <!-- Main Navigation -->
+                <ul class="nav-menu">
+                  
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    
+                </ul>
+                
+                <!-- Mobile Social Icons - Always visible -->
+                <div class="mobile-social-icons">
+                    <a href="https://linkedin.com//in/mahdi959" target="_blank" title="LinkedIn" class="social-icon-link">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="https://github.com/mahdiashrafee-oss" target="_blank" title="GitHub" class="social-icon-link">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                </div>
+                
+                <!-- Hamburger Menu Icon for Mobile -->
+                <button class="hamburger-menu" id="hamburger-toggle" aria-label="Menu">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
     
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-close" id="mobile-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-menu-buttons">
+            <!-- Mobile menu buttons -->
+            <button class="mobile-menu-button" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects1'">
+                <i class="fas fa-desktop"></i>
+                <span>Projects</span>
+            </button>
+            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects6'">
+                <i class="fas fa-code-branch"></i>
+                <span>Contributions</span>
+            </button>
+            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects5'">
+                <i class="fas fa-book"></i>
+                <span>Blog</span>
+            </button>
+            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalSkills'">
+                <i class="fas fa-laptop-code"></i>
+                <span>Skills</span>
+            </button>
+            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalAbout'">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile sidebar toggle button -->
+    <div class="blog-sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-terminal"></i>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    
+
+
     <main>
+        <!-- Blog Sidebar -->
+        <aside class="blog-sidebar" id="blogSidebar">
+            <div class="sidebar-section">
+                <h3>Reading Options</h3>
+                <div class="font-size-controls">
+                    <div class="font-size-display">Font Size: <span id="currentFontSize">100%</span></div>
+                    <button class="font-size-btn" id="decreaseFontBtn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="font-size-btn" id="increaseFontBtn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <!-- Text Color Controls -->
+                <div class="text-color-controls">
+                    <div class="color-option-title">Text Color:</div>
+                    <div class="color-picker-container">
+                        <button class="color-option default-color active" data-color="var(--text-color)" title="Default">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="color-option" style="background-color: #7aa2f7;" data-color="#7aa2f7" title="Blue"></button>
+                        <button class="color-option" style="background-color: #9ece6a;" data-color="#9ece6a" title="Green"></button>
+                        <button class="color-option" style="background-color: #e0af68;" data-color="#e0af68" title="Yellow"></button>
+                        <button class="color-option" style="background-color: #bb9af7;" data-color="#bb9af7" title="Purple"></button>
+                        <div class="color-option custom-color-picker" title="Custom Color">
+                            <input type="color" id="customColorInput" value="#ffffff">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Text Brightness/Contrast Controls -->
+                <div class="text-brightness-controls">
+                    <div class="brightness-title">Text Brightness:</div>
+                    <div class="brightness-slider-container">
+                        <span class="brightness-label dim"><i class="fas fa-moon"></i></span>
+                        <input type="range" id="brightnessSlider" class="brightness-slider" min="50" max="150" value="100">
+                        <span class="brightness-label bright"><i class="fas fa-sun"></i></span>
+                    </div>
+                    <div class="brightness-value">
+                        <span id="brightnessValue">100%</span>
+                    </div>
+                </div>
+                
+                <div class="blog-options">
+                    <div class="blog-option" id="toggleDarkMode">
+                        <i class="fas fa-moon"></i>
+                        <span>Toggle Dark/Light</span>
+                    </div>
+                    <div class="blog-option" id="saveForLater">
+                        <i class="fas fa-bookmark"></i>
+                        <span>Save for Later</span>
+                    </div>
+                    <div class="blog-option" id="copyLink">
+                        <i class="fas fa-link"></i>
+                        <span>Copy Link</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Recent Posts</h3>
+                <div class="blog-nav-item active">
+                    <div class="blog-nav-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div class="blog-nav-content">
+                        <div class="blog-nav-title">How It All Started</div>
+                        <div class="blog-nav-date">May 2024</div>
+                    </div>
+                </div>
+                
+                <div class="blog-nav-item">
+                    <div class="blog-nav-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="blog-nav-content">
+                        <div class="blog-nav-title">Coming Soon...</div>
+                        <div class="blog-nav-date">Future post</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </aside>
+
         <div class="blog-container">
             <div class="blog-header">
                 <h1 class="blog-title">How It All Started</h1>
@@ -1262,6 +1753,299 @@
             setupRealtimeUpdates();
         });
 
+        // Blog sidebar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const blogSidebar = document.getElementById('blogSidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const increaseFontBtn = document.getElementById('increaseFontBtn');
+            const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+            const currentFontSizeDisplay = document.getElementById('currentFontSize');
+            const blogContent = document.querySelector('.blog-content');
+            const toggleDarkMode = document.getElementById('toggleDarkMode');
+            const saveForLater = document.getElementById('saveForLater');
+            const copyLink = document.getElementById('copyLink');
+            const colorOptions = document.querySelectorAll('.color-option');
+            const customColorInput = document.getElementById('customColorInput');
+            const brightnessSlider = document.getElementById('brightnessSlider');
+            const brightnessValue = document.getElementById('brightnessValue');
+            
+            let fontSizePercentage = 100;
+            let currentTextColor = 'var(--text-color)';
+            let currentBrightness = 100;
+            
+            // Toggle sidebar on mobile
+            sidebarToggle.addEventListener('click', function() {
+                blogSidebar.classList.toggle('active');
+                
+                // Show/hide scroll indicator based on sidebar visibility
+                updateScrollIndicatorVisibility();
+            });
+            
+            // Function to update scroll indicator visibility
+            function updateScrollIndicatorVisibility() {
+                // Only show indicator if sidebar is active on mobile
+                if (window.innerWidth <= 992 && !blogSidebar.classList.contains('active')) {
+                    scrollIndicator.style.opacity = '0';
+                    scrollIndicator.style.pointerEvents = 'none';
+                } else {
+                    // Check if we need to show the indicator based on scroll position
+                    checkScrollPosition();
+                }
+            }
+            
+            // Function to check if we're at the bottom of the sidebar content
+            function checkScrollPosition() {
+                const sidebarScrollPosition = blogSidebar.scrollTop;
+                const sidebarVisibleHeight = blogSidebar.clientHeight;
+                const sidebarTotalHeight = blogSidebar.scrollHeight;
+                
+                // Threshold - when we're close to the bottom of the sidebar
+                const threshold = 50;
+                
+                // If we're at the bottom of the sidebar content
+                if (sidebarScrollPosition + sidebarVisibleHeight >= sidebarTotalHeight - threshold) {
+                    scrollIndicator.style.opacity = '0';
+                    scrollIndicator.style.pointerEvents = 'none';
+                } else {
+                    scrollIndicator.style.opacity = '1';
+                    scrollIndicator.style.pointerEvents = 'auto';
+                }
+            }
+            
+            // Close sidebar when clicking elsewhere
+            document.addEventListener('click', function(e) {
+                // If the click is outside the sidebar and sidebar toggle, close the sidebar
+                if (blogSidebar.classList.contains('active') && 
+                    !blogSidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target)) {
+                    blogSidebar.classList.remove('active');
+                    
+                    // Hide scroll indicator when sidebar is closed
+                    updateScrollIndicatorVisibility();
+                }
+            });
+            
+            // Check scroll indicator visibility on window resize
+            window.addEventListener('resize', updateScrollIndicatorVisibility);
+            
+            // Initialize the scroll indicator visibility
+            updateScrollIndicatorVisibility();
+            
+            // Scroll down when scroll indicator is clicked
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener('click', function() {
+                    blogSidebar.scrollBy({
+                        top: 200, // Scroll 200px at a time
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Increase font size
+            increaseFontBtn.addEventListener('click', function() {
+                if (fontSizePercentage < 150) {
+                    fontSizePercentage += 10;
+                    updateFontSize();
+                }
+            });
+            
+            // Decrease font size
+            decreaseFontBtn.addEventListener('click', function() {
+                if (fontSizePercentage > 70) {
+                    fontSizePercentage -= 10;
+                    updateFontSize();
+                }
+            });
+            
+            // Update font size
+            function updateFontSize() {
+                currentFontSizeDisplay.textContent = fontSizePercentage + '%';
+                
+                // Calculate actual font size 
+                const baseFontSize = 1.08; // Base font size for blog content is 1.08rem
+                const firstParagraphBaseFontSize = 1.2; // Base font size for first paragraph
+                
+                const newFontSize = (baseFontSize * fontSizePercentage / 100).toFixed(2) + 'rem';
+                const newFirstParagraphSize = (firstParagraphBaseFontSize * fontSizePercentage / 100).toFixed(2) + 'rem';
+                
+                // Apply new font size to blog content
+                blogContent.style.fontSize = newFontSize;
+                
+                // Apply to first paragraph if it exists
+                const firstParagraph = blogContent.querySelector('p:first-of-type');
+                if (firstParagraph) {
+                    firstParagraph.style.fontSize = newFirstParagraphSize;
+                }
+            }
+            
+            // Toggle dark/light mode
+            toggleDarkMode.addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+                document.body.classList.toggle('light-theme');
+                
+                // Update icon
+                const iconElement = this.querySelector('i');
+                if (document.body.classList.contains('dark-theme')) {
+                    iconElement.className = 'fas fa-moon';
+                    this.querySelector('span').textContent = 'Toggle Dark/Light';
+                } else {
+                    iconElement.className = 'fas fa-sun';
+                    this.querySelector('span').textContent = 'Toggle Dark/Light';
+                }
+                
+                // Store preference
+                localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+            });
+            
+            // Save for later (simulated)
+            saveForLater.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                const text = this.querySelector('span');
+                
+                if (icon.classList.contains('fa-bookmark')) {
+                    icon.classList.remove('fa-bookmark');
+                    icon.classList.add('fa-bookmark-slash');
+                    text.textContent = 'Saved! Click to unsave';
+                    this.style.backgroundColor = 'rgba(var(--accent-rgb), 0.2)';
+                } else {
+                    icon.classList.remove('fa-bookmark-slash');
+                    icon.classList.add('fa-bookmark');
+                    text.textContent = 'Save for Later';
+                    this.style.backgroundColor = 'rgba(var(--accent-rgb), 0.05)';
+                }
+            });
+            
+            // Copy link to clipboard
+            copyLink.addEventListener('click', function() {
+                const currentUrl = window.location.href;
+                navigator.clipboard.writeText(currentUrl).then(() => {
+                    const originalText = this.querySelector('span').textContent;
+                    this.querySelector('span').textContent = 'Link Copied!';
+                    this.style.backgroundColor = 'rgba(var(--accent-rgb), 0.2)';
+                    
+                    setTimeout(() => {
+                        this.querySelector('span').textContent = originalText;
+                        this.style.backgroundColor = 'rgba(var(--accent-rgb), 0.05)';
+                    }, 2000);
+                });
+            });
+            
+            // Text color change functionality
+            colorOptions.forEach(option => {
+                if (!option.classList.contains('custom-color-picker')) {
+                    option.addEventListener('click', function() {
+                        // Remove active class from all options
+                        colorOptions.forEach(opt => opt.classList.remove('active'));
+                        
+                        // Add active class to clicked option
+                        this.classList.add('active');
+                        
+                        // Get and apply the color
+                        currentTextColor = this.getAttribute('data-color');
+                        updateTextColor();
+                    });
+                }
+            });
+            
+            // Custom color input functionality
+            customColorInput.addEventListener('input', function() {
+                // Get the selected color
+                const selectedColor = this.value;
+                
+                // Remove active class from all options
+                colorOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to the custom color picker parent
+                this.parentElement.classList.add('active');
+                
+                // Update current text color
+                currentTextColor = selectedColor;
+                updateTextColor();
+            });
+            
+            // Function to update text color
+            function updateTextColor() {
+                // Apply color to all text in blog content
+                blogContent.style.color = currentTextColor;
+                
+                // Save preference to localStorage
+                localStorage.setItem('blogTextColor', currentTextColor);
+            }
+            
+            // Apply theme from localStorage
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme) {
+                if (storedTheme === 'light') {
+                    document.body.classList.remove('dark-theme');
+                    document.body.classList.add('light-theme');
+                    toggleDarkMode.querySelector('i').className = 'fas fa-sun';
+                } else {
+                    document.body.classList.add('dark-theme');
+                    document.body.classList.remove('light-theme');
+                    toggleDarkMode.querySelector('i').className = 'fas fa-moon';
+                }
+            }
+            
+            // Brightness slider functionality
+            brightnessSlider.addEventListener('input', function() {
+                currentBrightness = this.value;
+                updateBrightness();
+            });
+            
+            // Function to update text brightness/contrast
+            function updateBrightness() {
+                // Update display value
+                brightnessValue.textContent = currentBrightness + '%';
+                
+                // Apply filter to blog content
+                // Using brightness filter for direct brightness control
+                // Adding contrast to maintain readability at extreme values
+                const contrastValue = currentBrightness > 100 ? 
+                    100 + (currentBrightness - 100) * 0.3 : // Increase contrast slightly for higher brightness
+                    100 - (100 - currentBrightness) * 0.2;  // Decrease contrast slightly for lower brightness
+                
+                blogContent.style.filter = `brightness(${currentBrightness/100}) contrast(${contrastValue/100})`;
+                
+                // Save to localStorage
+                localStorage.setItem('blogBrightness', currentBrightness);
+            }
+            
+            // Apply text color from localStorage if available
+            const storedTextColor = localStorage.getItem('blogTextColor');
+            if (storedTextColor) {
+                currentTextColor = storedTextColor;
+                blogContent.style.color = currentTextColor;
+                
+                // Check if it's one of the predefined colors
+                let isPresetColor = false;
+                colorOptions.forEach(option => {
+                    if (option.getAttribute('data-color') === currentTextColor) {
+                        option.classList.add('active');
+                        isPresetColor = true;
+                    } else {
+                        option.classList.remove('active');
+                    }
+                });
+                
+                // If it's a custom color
+                if (!isPresetColor) {
+                    // Set the custom color input value
+                    customColorInput.value = currentTextColor;
+                    // Activate the custom color picker
+                    customColorInput.parentElement.classList.add('active');
+                }
+            }
+            
+            // Apply brightness from localStorage if available
+            const storedBrightness = localStorage.getItem('blogBrightness');
+            if (storedBrightness) {
+                currentBrightness = Number(storedBrightness);
+                brightnessSlider.value = currentBrightness;
+                updateBrightness();
+            }
+        });
+        
         // Vim-like Command Interface
         document.addEventListener('DOMContentLoaded', function() {
             const commandOverlay = document.getElementById('commandOverlay');
