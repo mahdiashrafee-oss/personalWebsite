@@ -35,6 +35,12 @@
             margin-top: 60px;
         }
         
+        @media (max-width: 992px) {
+            main {
+                min-height: 110vh; /* Increased height for mobile/tablet view */
+            }
+        }
+        
         .blog-container {
             max-width: 900px;
             margin: 0 auto;
@@ -470,7 +476,7 @@
             color: var(--comment-color);
         }
         
-        /* Mobile sidebar toggle */
+        /* Mobile sidebar toggle - updated to match main page */
         .blog-sidebar-toggle {
             display: none;
             position: fixed;
@@ -478,20 +484,41 @@
             left: 20px;
             background-color: var(--secondary-color);
             border: 1px solid var(--border-color);
-            color: var(--text-color);
-            border-radius: 50%;
+            color: var(--accent-color);
+            border-radius: 4px;
             width: 40px;
             height: 40px;
             align-items: center;
             justify-content: center;
             z-index: 100;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-sidebar-toggle::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-blue);
+            opacity: 0.8;
+            z-index: 1;
         }
         
         .blog-sidebar-toggle i {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--accent-color);
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .blog-sidebar-toggle:hover i {
+            transform: translateY(-2px);
         }
 
         /* Responsive adjustments */
@@ -1255,26 +1282,6 @@
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </button>
-            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects1'">
-                <i class="fas fa-desktop"></i>
-                <span>Projects</span>
-            </button>
-            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects6'">
-                <i class="fas fa-code-branch"></i>
-                <span>Contributions</span>
-            </button>
-            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalProjects5'">
-                <i class="fas fa-book"></i>
-                <span>Blog</span>
-            </button>
-            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalSkills'">
-                <i class="fas fa-laptop-code"></i>
-                <span>Skills</span>
-            </button>
-            <button class="mobile-menu-button" onclick="window.location.href='index.html#modalAbout'">
-                <i class="fas fa-user"></i>
-                <span>About Me</span>
-            </button>
         </div>
     </div>
     
@@ -1358,7 +1365,7 @@
                         <i class="fas fa-file-code"></i>
                     </div>
                     <div class="blog-nav-content">
-                        <div class="blog-nav-title">How It All Started</div>
+                        <div class="blog-nav-title">My Journey</div>
                         <div class="blog-nav-date">May 2024</div>
                     </div>
                 </div>
@@ -1372,6 +1379,20 @@
                         <div class="blog-nav-date">Future post</div>
                     </div>
                 </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <h3>
+                            <br>
+                            End of sidebar
+                        </h3>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                   
+                </div>
             </div>
             
             
@@ -1379,7 +1400,7 @@
 
         <div class="blog-container">
             <div class="blog-header">
-                <h1 class="blog-title">How It All Started</h1>
+                <h1 class="blog-title">My Journey</h1>
                 <div class="blog-metadata">
                     <i class="far fa-calendar-alt"></i> Published on <span class="highlight">July 15, 2023</span>
                     <span class="separator">|</span>
@@ -1778,6 +1799,15 @@
             sidebarToggle.addEventListener('click', function() {
                 blogSidebar.classList.toggle('active');
                 
+                // For phone screens, hide the toggle button when sidebar is open
+                if (window.innerWidth <= 768) { // Phone size threshold
+                    if (blogSidebar.classList.contains('active')) {
+                        sidebarToggle.style.display = 'none';
+                    } else {
+                        sidebarToggle.style.display = 'flex';
+                    }
+                }
+                
                 // Show/hide scroll indicator based on sidebar visibility
                 updateScrollIndicatorVisibility();
             });
@@ -1821,13 +1851,28 @@
                     !sidebarToggle.contains(e.target)) {
                     blogSidebar.classList.remove('active');
                     
+                    // For phone screens, show the toggle button when sidebar is closed
+                    if (window.innerWidth <= 768) {
+                        sidebarToggle.style.display = 'flex';
+                    }
+                    
                     // Hide scroll indicator when sidebar is closed
                     updateScrollIndicatorVisibility();
                 }
             });
             
-            // Check scroll indicator visibility on window resize
-            window.addEventListener('resize', updateScrollIndicatorVisibility);
+            // Check sidebar toggle visibility on window resize
+            window.addEventListener('resize', function() {
+                // If sidebar is active on phones, hide toggle
+                if (window.innerWidth <= 768 && blogSidebar.classList.contains('active')) {
+                    sidebarToggle.style.display = 'none';
+                } else if (window.innerWidth <= 768) {
+                    sidebarToggle.style.display = 'flex';
+                }
+                
+                // Check scroll indicator visibility
+                updateScrollIndicatorVisibility();
+            });
             
             // Initialize the scroll indicator visibility
             updateScrollIndicatorVisibility();

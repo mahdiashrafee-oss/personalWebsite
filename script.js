@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Adjust animation width based on screen size
             if (window.innerWidth <= 480) {
-                animationWidth = '289px'; // Small mobile - increased to show full text
+                animationWidth = '300px'; // Small mobile - increased to show full text
                 typingElement.style.fontSize = '2.2rem';
             } else if (window.innerWidth <= 768) {
                 animationWidth = '320px'; // Tablet/mobile - increased to show full text
