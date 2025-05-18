@@ -2734,7 +2734,7 @@ footer {
     height: 40px;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 990; /* Reduced z-index to ensure it's below header (1000) */
     cursor: pointer;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
@@ -3089,10 +3089,10 @@ main {
         top: 60px;
         left: -300px;
         width: 280px;
-        height: 100vh;
+        height: calc(100vh - 60px);
         max-height: none;
         overflow-y: auto;
-        z-index: 1000;
+        z-index: 999; /* Reduced z-index to position behind header */
         transition: left 0.3s ease;
         background-color: var(--secondary-color);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
